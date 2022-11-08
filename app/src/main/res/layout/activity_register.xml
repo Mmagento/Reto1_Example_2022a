@@ -87,4 +87,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.644" />
+
+    <Button
+        android:id="@+id/botonSalir"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/botonSalir"
+        tools:layout_editor_absoluteX="160dp"
+        tools:layout_editor_absoluteY="508dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -16,4 +16,9 @@
     <string name="textPassword1"></string>
     <string name="textPassword2"></string>
     <string name="botonRegistro">Registrar</string>
+    <string name="botonSalir">Salir</string>
+    <string name="textUserLogin"></string>
+    <string name="textPasswordLogin"></string>
+    <string name="botonIniciarLogin">Iniciar</string>
+    <string name="botonRegistroLogin">Registrar</string>
 </resources>
