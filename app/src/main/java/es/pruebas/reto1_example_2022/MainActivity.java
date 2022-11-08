@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -42,19 +43,31 @@ public class MainActivity extends AppCompatActivity {
         inicarSesion = findViewById(R.id.botonIniciarLogin);
         registro = findViewById(R.id.botonRegistroLogin);
 
+        Intent intentComunity = new Intent(MainActivity.this, ComunityActivity.class);
+
         inicarSesion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 pasarMinusculas();
-                Intent intentComunity = new Intent(MainActivity.this, ComunityActivity.class);
+
+                //intentComunity.putExtra("email", editUser);
+
             }
+        });
+
+        recordarUsuario.setOnCheckedChangeListener(new CheckBox.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean checked) {
+
+            }
+
         });
 
     }
 
     protected void pasarMinusculas(){
 
-        editUser.toString().toLowerCase();
-        editPassword.toString().toLowerCase();
+        String usuario = editUser.toString().toLowerCase();
+        String password = editPassword.toString().toLowerCase();
     }
 }
