@@ -1,5 +1,6 @@
 package es.pruebas.reto1_example_2022;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -19,9 +20,13 @@ public class RegisterActivity extends AppCompatActivity {
     public EditText password2;
     Button botonRegistro;
 
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+
+        DataManager dataManager = new DataManager(this);
 
         Intent intentacanciones = new Intent(RegisterActivity.this, MainActivity.class);
 
