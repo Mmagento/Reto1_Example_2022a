@@ -16,6 +16,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import es.pruebas.reto1_example_2022.adapters.MyTableAdapter;
 import es.pruebas.reto1_example_2022.beans.Video;
@@ -44,12 +45,13 @@ public class MainActivity extends AppCompatActivity {
         registro = findViewById(R.id.botonRegistroLogin);
 
         Intent intentComunity = new Intent(MainActivity.this, ComunityActivity.class);
+        Intent intentRegister = new Intent(MainActivity.this, RegisterActivity.class);
 
         inicarSesion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 pasarMinusculas();
-
+                inicioSesion();
                 //intentComunity.putExtra("email", editUser);
 
             }
@@ -63,11 +65,30 @@ public class MainActivity extends AppCompatActivity {
 
         });
 
+        registro.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MainActivity.this.startActivity(intentRegister);
+            }
+        });
+
     }
 
     protected void pasarMinusculas(){
 
-        String usuario = editUser.toString().toLowerCase();
-        String password = editPassword.toString().toLowerCase();
+        editUser.toString().toLowerCase();
+        editPassword.toString().toLowerCase();
     }
+
+    private void inicioSesion(){
+
+        final String usuario = String.valueOf(editUser);
+        final String password = String.valueOf(editPassword);
+
+        DataManager data = new DataManager(this);
+        data.getWritableDatabase();
+        List<Users> personas = data.selectAllUsers();
+
+    }
+
 }

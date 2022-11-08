@@ -26,8 +26,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/recordarSesion"
-        tools:layout_editor_absoluteX="144dp"
-        tools:layout_editor_absoluteY="362dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.511"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.572" />
 
     <EditText
         android:id="@+id/textPasswordLogin"
@@ -72,7 +76,11 @@
         android:id="@+id/logoApp"
         android:layout_width="134dp"
         android:layout_height="111dp"
-        app:srcCompat="@drawable/logo_musica"
-        tools:layout_editor_absoluteX="138dp"
-        tools:layout_editor_absoluteY="26dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.096"
+        app:srcCompat="@drawable/logo_musica" />
 </androidx.constraintlayout.widget.ConstraintLayout>
