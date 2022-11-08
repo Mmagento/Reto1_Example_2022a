@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 pasarMinusculas();
-                //Intent intentComunity = new Intent(MainActivity.this, ComunityActivity.class);
+                Intent intentComunity = new Intent(MainActivity.this, ComunityActivity.class);
             }
         });
 
