@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Reto1_Example_2022</string>
+    <string name="fill">Get One</string>
+    <string name="lets_call_some_rest">Lets call some rest!</string>
+    <string name="userid">Video Id</string>
+    <string name="user_name">Title</string>
+    <string name="location">Url</string>
+    <string name="error_communication">Error de comunicacion</string>
+    <string name="fill_all">Get All</string>
+    <string name="post">Add Fav</string>
+    <string name="favorited">Favoriteada!!!</string>
+    <string name="error_no_encontrado">No encontrado</string>
+</resources>
