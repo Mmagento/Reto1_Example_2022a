@@ -26,6 +26,13 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
+        botonRegistro = findViewById(R.id.botonRegistro);
+        nombre = findViewById(R.id.textNombre);
+        apellidos = findViewById(R.id.textApellidos);
+        email = findViewById(R.id.textEmail);
+        password1 = findViewById(R.id.textPassword1);
+        password2 = findViewById(R.id.textPassword2);
+
         Intent intentacanciones = new Intent(RegisterActivity.this, MainActivity.class);
 
         // 1-Para transformar los datos en minusculas.
@@ -36,14 +43,6 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // 2-Para transformar los datos en minusculas.
-
-
-                botonRegistro = findViewById(R.id.botonRegistro);
-                nombre = findViewById(R.id.textNombre);
-                apellidos = findViewById(R.id.textApellidos);
-                email = findViewById(R.id.textEmail);
-                password1 = findViewById(R.id.textPassword1);
-                password2 = findViewById(R.id.textPassword2);
 
                 String mnombre = nombre.toString().toLowerCase();
                 String mapellidos = apellidos.toString().toLowerCase();
