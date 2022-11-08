@@ -28,7 +28,7 @@ import es.pruebas.reto1_example_2022.network.VideosFacade;
 public class GestorConexiones extends AppCompatActivity {
 
     TextView textUser;
-    Button boton;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
