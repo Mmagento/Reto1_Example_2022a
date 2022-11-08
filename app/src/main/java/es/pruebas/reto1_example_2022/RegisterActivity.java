@@ -36,13 +36,13 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // 2-Para transformar los datos en minusculas.
-                nombre.toString().toLowerCase();
-                apellidos.toString().toLowerCase();
-                email.toString().toLowerCase();
-                password1.toString().toLowerCase();
-                password2.toString().toLowerCase();
+                String mnombre = nombre.toString().toLowerCase();
+                String mapellidos = apellidos.toString().toLowerCase();
+                String memail = email.toString().toLowerCase();
+                String mpassword1 = password1.toString().toLowerCase();
+                String mpassword2 = password2.toString().toLowerCase();
 
-                //intentacanciones.putExtra();
+
                 RegisterActivity.this.startActivity(intentacanciones);
             }
         });
