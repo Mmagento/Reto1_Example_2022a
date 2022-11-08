@@ -8,6 +8,7 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -27,6 +28,7 @@ import es.pruebas.reto1_example_2022.network.VideosFacade;
 public class GestorConexiones extends AppCompatActivity {
 
     TextView textUser;
+    Button boton;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
