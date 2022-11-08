@@ -81,12 +81,29 @@ public class MainActivity extends AppCompatActivity {
 
     private void inicioSesion(){
 
-        final String usuario = String.valueOf(editUser);
-        final String password = String.valueOf(editPassword);
+        String usuario = editUser.toString();
+        String password = editPassword.toString();
 
         DataManager data = new DataManager(this);
         data.getWritableDatabase();
         List<Users> personas = data.selectAllUsers();
+
+
+        for(int i = 0; i<personas.size();i++){
+
+            if(personas.get(i).getEmail().equalsIgnoreCase(usuario)){
+
+                //esta bien
+            }else{
+
+
+                //no esta bien
+            }
+
+
+
+        }
+
 
     }
 
