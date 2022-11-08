@@ -19,6 +19,7 @@
     <string name="botonSalir">Salir</string>
     <string name="textUserLogin"></string>
     <string name="textPasswordLogin"></string>
+    <string name="recordarSesion">Recordar Usuario</string>
     <string name="botonIniciarLogin">Iniciar</string>
     <string name="botonRegistroLogin">Registrar</string>
 </resources>

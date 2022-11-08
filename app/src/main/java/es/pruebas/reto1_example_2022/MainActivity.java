@@ -3,10 +3,14 @@ package es.pruebas.reto1_example_2022;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -22,10 +26,35 @@ import es.pruebas.reto1_example_2022.network.VideosFacade;
  */
 public class MainActivity extends AppCompatActivity {
 
+    private EditText editUser;
+    private EditText editPassword;
+    private CheckBox recordarUsuario;
+    Button inicarSesion, registro;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        editUser = findViewById(R.id.textUserLogin);
+        editPassword = findViewById(R.id.textPasswordLogin);
+        recordarUsuario = findViewById(R.id.recordarSesion);
+        inicarSesion = findViewById(R.id.botonIniciarLogin);
+        registro = findViewById(R.id.botonRegistroLogin);
+
+        inicarSesion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                pasarMinusculas();
+                Intent intentComunity = new Intent(MainActivity.this, ComunityActivity.class);
+            }
+        });
+
+    }
+
+    protected void pasarMinusculas(){
+
+        editUser.toString().toLowerCase();
+        editPassword.toString().toLowerCase();
     }
 }

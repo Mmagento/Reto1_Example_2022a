@@ -4,8 +4,11 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,6 +26,7 @@ import es.pruebas.reto1_example_2022.network.VideosFacade;
 
 public class GestorConexiones extends AppCompatActivity {
 
+    TextView textUser;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -34,10 +38,7 @@ public class GestorConexiones extends AppCompatActivity {
 
     MyTableAdapter myTableAdapter = new MyTableAdapter (this, R.layout.myrow_layout, listado);
 
-
-    ((TextView) findViewById(R.id.textUserLogin)).setAdapter (myTableAdapter);
-
-    findViewById(R.id.getOneButton ).setOnClickListener( new View.OnClickListener() {
+    findViewById(R.id.botonIniciarLogin ).setOnClickListener( new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             if (isConnected()) {
@@ -53,12 +54,11 @@ public class GestorConexiones extends AppCompatActivity {
                 // Processing the answer
                 Video user = videoFacade.getResponse();
                 listado.add( user );
-                ((ListView) GestorConexiones.this.findViewById( R.id.listView )).setAdapter( myTableAdapter );
             }
         }
     } );
-
-    findViewById(R.id.getAllButton ).setOnClickListener( v -> {
+/*
+    findViewById(R.id.botonIniciarLogin ).setOnClickListener( v -> {
         if (isConnected()) {
             VideosFacade videosFacade = new VideosFacade();
             Thread thread = new Thread( videosFacade );
@@ -71,9 +71,10 @@ public class GestorConexiones extends AppCompatActivity {
             // Processing the answer
             ArrayList<Video> listVideos = videosFacade.getResponse();
             listado.addAll( listVideos );
-            ((ListView) findViewById( R.id.listView)).setAdapter (myTableAdapter);
         }
     });
+
+ */
 }
 
     /**
