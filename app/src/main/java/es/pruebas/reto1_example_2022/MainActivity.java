@@ -88,6 +88,23 @@ public class MainActivity extends AppCompatActivity {
         data.getWritableDatabase();
         List<Users> personas = data.selectAllUsers();
 
+
+        for(int i = 0; i<personas.size();i++){
+
+            if(personas.get(i).getEmail().equalsIgnoreCase(usuario)){
+
+                //esta bien
+            }else{
+
+
+                //no esta bien
+            }
+
+
+
+        }
+
+
     }
 
 }
