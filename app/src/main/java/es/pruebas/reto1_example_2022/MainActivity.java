@@ -45,7 +45,6 @@ public class MainActivity extends AppCompatActivity {
         registro = findViewById(R.id.botonRegistroLogin);
 
         Intent intentComunity = new Intent(MainActivity.this, ComunityActivity.class);
-        Intent intentRegister = new Intent(MainActivity.this, RegisterActivity.class);
 
         inicarSesion.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,8 +67,8 @@ public class MainActivity extends AppCompatActivity {
         registro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                MainActivity.this.startActivity(intentRegister);
-            }
+                Intent intentRegister = new Intent(MainActivity.this, RegisterActivity.class);
+                startActivity(intentRegister); }
         });
 
     }
