@@ -26,29 +26,47 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        DataManager dataManager = new DataManager(this);
-
         Intent intentacanciones = new Intent(RegisterActivity.this, MainActivity.class);
 
         // 1-Para transformar los datos en minusculas.
-        botonRegistro = findViewById(R.id.botonRegistro);
-        nombre = (EditText)findViewById(R.id.textNombre);
-        apellidos = (EditText)findViewById(R.id.textApellidos);
-        email = (EditText)findViewById(R.id.textEmail);
-        password1 = (EditText)findViewById(R.id.textPassword1);
-        password2 = (EditText)findViewById(R.id.textPassword2);
+        DataManager dataManager = new DataManager(this);
+        Users usuario = new Users();
+
         botonRegistro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // 2-Para transformar los datos en minusculas.
+
+
+                botonRegistro = findViewById(R.id.botonRegistro);
+                nombre = findViewById(R.id.textNombre);
+                apellidos = findViewById(R.id.textApellidos);
+                email = findViewById(R.id.textEmail);
+                password1 = findViewById(R.id.textPassword1);
+                password2 = findViewById(R.id.textPassword2);
+
                 String mnombre = nombre.toString().toLowerCase();
                 String mapellidos = apellidos.toString().toLowerCase();
                 String memail = email.toString().toLowerCase();
                 String mpassword1 = password1.toString().toLowerCase();
                 String mpassword2 = password2.toString().toLowerCase();
 
+                if(mpassword1.equals(mpassword2)){
+                    usuario.setApellidos(mapellidos);
+                    usuario.setEmail(memail);
+                    usuario.setNombre(mnombre);
+                    usuario.setPassword(mpassword1);
+
+                    dataManager.insert(usuario);
+
+
+                }else{
+                    //Mensaje de error en pswd
+                }
 
                 RegisterActivity.this.startActivity(intentacanciones);
+
+
             }
         });
 
