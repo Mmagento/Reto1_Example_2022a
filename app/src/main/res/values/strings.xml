@@ -10,4 +10,10 @@
     <string name="post">Add Fav</string>
     <string name="favorited">Favoriteada!!!</string>
     <string name="error_no_encontrado">No encontrado</string>
+    <string name="textNombre"></string>
+    <string name="textApellidos"></string>
+    <string name="textEmail"></string>
+    <string name="textPassword1"></string>
+    <string name="textPassword2"></string>
+    <string name="botonRegistro">Registrar</string>
 </resources>
