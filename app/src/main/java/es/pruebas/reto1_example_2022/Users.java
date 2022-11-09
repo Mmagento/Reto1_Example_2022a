@@ -5,6 +5,7 @@ import java.io.Serializable;
 public class Users implements Serializable {
 
     private int id;
+    private String Login;
     private String nombre;
     private String apellidos;
     private String email;
@@ -19,6 +20,10 @@ public class Users implements Serializable {
     public void setId(int id) {
         this.id = id;
     }
+
+    public String getLogin() {return Login;}
+
+    public void setLogin(String login) { this.Login = login; }
 
     public String getNombre() {
         return nombre;
