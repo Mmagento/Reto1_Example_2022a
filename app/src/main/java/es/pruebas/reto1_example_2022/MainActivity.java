@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //---DATOS RECOGIDOS DE EL INTENT DE RegisterActivity---
         Bundle extras = getIntent().getExtras();
         if(extras!=null) {
             String login = extras.getString("Login");
@@ -49,19 +50,26 @@ public class MainActivity extends AppCompatActivity {
             EditText PAS= findViewById(R.id.textPasswordLogin);
             PAS.setText(password);
         }
+        //------------------------------------------------------
+
         editUser = findViewById(R.id.textUserLogin);
         editPassword = findViewById(R.id.textPasswordLogin);
         recordarUsuario = findViewById(R.id.recordarSesion);
         inicarSesion = findViewById(R.id.botonIniciarLogin);
         registro = findViewById(R.id.botonRegistroLogin);
 
-        Intent intentComunity = new Intent(MainActivity.this, ComunityActivity.class);
+
 
         inicarSesion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 pasarMinusculas();
                 inicioSesion();
+                existeUsuario();
+
+                Intent intentComunity = new Intent(MainActivity.this, ComunityActivity.class);
+                startActivity(intentComunity);
+
                 //intentComunity.putExtra("email", editUser);
 
             }
@@ -82,6 +90,11 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intentRegister); }
         });
 
+    }
+
+    public void existeUsuario(){
+        String mnombre = editUser.getText().toString();
+        String mapellidos = editPassword.getText().toString();
     }
 
     protected void pasarMinusculas(){
