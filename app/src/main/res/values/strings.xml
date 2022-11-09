@@ -25,4 +25,6 @@
     <string name="botonRegistroLogin">Registrar</string>
     <string name="insertadocorrectamente">Insertado correctamente</string>
     <string name="insertadonocorrectamente">Insertado no correctamente</string>
+    <string name="getAllButton">Obtener todos</string>
+    <string name="getOneButton">Obtener uno</string>
 </resources>
