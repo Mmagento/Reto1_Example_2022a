@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -44,11 +45,11 @@ public class RegisterActivity extends AppCompatActivity {
             public void onClick(View view) {
                 // 2-Para transformar los datos en minusculas.
 
-                String mnombre = nombre.toString().toLowerCase();
-                String mapellidos = apellidos.toString().toLowerCase();
-                String memail = email.toString().toLowerCase();
-                String mpassword1 = password1.toString().toLowerCase();
-                String mpassword2 = password2.toString().toLowerCase();
+                String mnombre = nombre.getText().toString().toLowerCase();
+                String mapellidos = apellidos.getText().toString().toLowerCase();
+                String memail = email.getText().toString().toLowerCase();
+                String mpassword1 = password1.getText().toString();
+                String mpassword2 = password2.getText().toString();
 
                 if(mpassword1.equals(mpassword2)){
                     usuario.setApellidos(mapellidos);
@@ -57,10 +58,11 @@ public class RegisterActivity extends AppCompatActivity {
                     usuario.setPassword(mpassword1);
 
                     dataManager.insert(usuario);
-
+                    Toast.makeText(getApplicationContext(), getString( R.string.insertadocorrectamente ), Toast.LENGTH_LONG).show();
 
                 }else{
-                    //Mensaje de error en pswd
+                    Toast.makeText(getApplicationContext(), getString( R.string.insertadonocorrectamente ), Toast.LENGTH_LONG).show();
+
                 }
 
                 RegisterActivity.this.startActivity(intentacanciones);

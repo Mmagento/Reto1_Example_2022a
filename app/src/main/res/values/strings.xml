@@ -22,4 +22,6 @@
     <string name="recordarSesion">Recordar Usuario</string>
     <string name="botonIniciarLogin">Iniciar</string>
     <string name="botonRegistroLogin">Registrar</string>
+    <string name="insertadocorrectamente">Insertado correctamente</string>
+    <string name="insertadonocorrectamente">Insertado no correctamente</string>
 </resources>
