@@ -59,7 +59,7 @@ public class GestorConexiones extends AppCompatActivity {
             }
         }
     } );
-/*
+
     findViewById(R.id.botonIniciarLogin ).setOnClickListener( v -> {
         if (isConnected()) {
             VideosFacade videosFacade = new VideosFacade();
@@ -76,7 +76,7 @@ public class GestorConexiones extends AppCompatActivity {
         }
     });
 
- */
+
 }
 
     /**
