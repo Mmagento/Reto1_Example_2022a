@@ -20,7 +20,7 @@ public class RegisterActivity extends AppCompatActivity {
     public EditText password1;
     public EditText password2;
     Button botonRegistro;
-    public String insertado="Cliente insertado";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
