@@ -33,6 +33,8 @@ public class DataManager extends SQLiteOpenHelper {
 
     private final Context context;
 
+    public List<Users> ret = new ArrayList<>();
+
     public DataManager(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
         this.context = context;
@@ -100,16 +102,23 @@ public class DataManager extends SQLiteOpenHelper {
 
     /* Insertar */
 
-    public void insert (Users user) {
-        ContentValues values = new ContentValues();
-        values.put(NOMBRE, user.getNombre());
-        values.put(APELLIDOS, user.getApellidos());
-        values.put(EMAIL, user.getEmail());
-        values.put(PASSWORD, user.getPassword());
+    public boolean insert (Users user) {
+        boolean existe = false;
+        if(buscar(user.getEmail())==0){
+            ContentValues values = new ContentValues();
+            values.put(NOMBRE, user.getNombre());
+            values.put(APELLIDOS, user.getApellidos());
+            values.put(EMAIL, user.getEmail());
+            values.put(PASSWORD, user.getPassword());
 
-        SQLiteDatabase sQLiteDatabase = this.getWritableDatabase();
-        sQLiteDatabase.insert(TABLE_NAME, null, values);
-        sQLiteDatabase.close();
+            SQLiteDatabase sQLiteDatabase = this.getWritableDatabase();
+            sQLiteDatabase.insert(TABLE_NAME, null, values);
+            sQLiteDatabase.close();
+
+        } else {
+            return existe =true;
+        }
+        return existe;
     }
 
     /* Actualizar */
@@ -167,6 +176,19 @@ public class DataManager extends SQLiteOpenHelper {
             }
         }
         return ret;
+    }
+
+    //Buscar usuario
+
+    public int buscar(String u){
+        int x=0;
+        ret = selectAllUsers();
+        for (Users us:ret) {
+            if(us.getEmail().equalsIgnoreCase(u)){
+                x++;
+            }
+        }
+        return x;
     }
 
 }
