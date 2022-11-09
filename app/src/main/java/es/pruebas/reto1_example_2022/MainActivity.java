@@ -39,9 +39,16 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Bundle extras = getIntent().getExtras();
-        String login = extras.getString("Login");
-        String password = extras.getString("Password");
+        if(extras!=null) {
+            String login = extras.getString("Login");
+            String password = extras.getString("Password");
 
+            EditText US = findViewById(R.id.textUserLogin);
+            US.setText(login);
+
+            EditText PAS= findViewById(R.id.textPasswordLogin);
+            PAS.setText(password);
+        }
         editUser = findViewById(R.id.textUserLogin);
         editPassword = findViewById(R.id.textPasswordLogin);
         recordarUsuario = findViewById(R.id.recordarSesion);
