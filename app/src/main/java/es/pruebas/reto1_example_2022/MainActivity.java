@@ -38,6 +38,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Bundle extras = getIntent().getExtras();
+        String login = extras.getString("Login");
+        String password = extras.getString("Password");
+
         editUser = findViewById(R.id.textUserLogin);
         editPassword = findViewById(R.id.textPasswordLogin);
         recordarUsuario = findViewById(R.id.recordarSesion);

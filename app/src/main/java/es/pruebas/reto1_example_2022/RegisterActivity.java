@@ -70,6 +70,9 @@ public class RegisterActivity extends AppCompatActivity {
 
                     dataManager.insert(usuario);
                     Toast.makeText(getApplicationContext(), getString( R.string.insertadocorrectamente ), Toast.LENGTH_LONG).show();
+
+                    intentacanciones.putExtra("Login",login);
+                    intentacanciones.putExtra("Password",mpassword1);
                     startActivity(intentacanciones);
 
                 }else{
@@ -77,7 +80,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                 }
 
-                //intentacanciones.putExtra("Login",login);
+
 
 
 
