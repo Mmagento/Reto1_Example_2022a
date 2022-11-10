@@ -2,26 +2,15 @@ package es.pruebas.reto1_example_2022;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.content.Intent;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.ListView;
-import android.widget.Toast;
 
-import java.util.ArrayList;
 import java.util.List;
-
-import es.pruebas.reto1_example_2022.adapters.MyTableAdapter;
-import es.pruebas.reto1_example_2022.beans.Video;
-import es.pruebas.reto1_example_2022.network.VideoFacade;
-import es.pruebas.reto1_example_2022.network.VideosFacade;
 
 /**
  * Main Activity
@@ -67,8 +56,6 @@ public class MainActivity extends AppCompatActivity {
                 inicioSesion();
                 existeUsuario();
 
-                Intent intentComunity = new Intent(MainActivity.this, ComunityActivity.class);
-                startActivity(intentComunity);
 
                 //intentComunity.putExtra("email", editUser);
 
@@ -112,11 +99,15 @@ public class MainActivity extends AppCompatActivity {
         data.getWritableDatabase();
         List<Users> personas = data.selectAllUsers();
 
+        System.out.println(personas);
+
 
         for(int i = 0; i<personas.size();i++){
 
-            if(personas.get(i).getEmail().equalsIgnoreCase(usuario)){
-
+            if(personas.get(i).getLogin().equalsIgnoreCase(usuario)){
+                System.out.println("Estoy dentro");
+                Intent intentComunity = new Intent(MainActivity.this, ComunityActivity.class);
+                startActivity(intentComunity);
                 //esta bien
             }else{
 

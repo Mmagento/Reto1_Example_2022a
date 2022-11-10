@@ -17,6 +17,7 @@ public class DataManager extends SQLiteOpenHelper {
 
     public static final String TABLE_NAME = "usuarios";
 
+    private static final String LOGIN = "login";
     private static final String ID = "id";
     private static final String NOMBRE = "nombre";
     private static final String APELLIDOS = "apellidos";
@@ -24,6 +25,7 @@ public class DataManager extends SQLiteOpenHelper {
     private static final String PASSWORD = "password";
 
     private static final String CREATE_TABLE = "create table " + TABLE_NAME + "(" +
+            LOGIN + " TEXT NOT NULL, " +
             ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
             NOMBRE + " TEXT NOT NULL, " +
             APELLIDOS + " TEXT NOT NULL, " +
@@ -61,11 +63,12 @@ public class DataManager extends SQLiteOpenHelper {
         Users user;
         while (cursor.moveToNext()) {
             user = new Users();
-            user.setId(cursor.getInt(0));
-            user.setNombre(cursor.getString(1));
-            user.setApellidos(cursor.getString(2));
-            user.setEmail(cursor.getString(3));
-            user.setPassword(cursor.getString(4));
+            user.setLogin(cursor.getString(0));
+            user.setId(cursor.getInt(1));
+            user.setNombre(cursor.getString(2));
+            user.setApellidos(cursor.getString(3));
+            user.setEmail(cursor.getString(4));
+            user.setPassword(cursor.getString(5));
 
 
             ret.add(user);
@@ -87,7 +90,6 @@ public class DataManager extends SQLiteOpenHelper {
         if (cursor.moveToFirst()) {
             cursor.moveToFirst();
             user.setId(cursor.getInt(0));
-            user.setId(cursor.getInt(0));
             user.setNombre(cursor.getString(1));
             user.setApellidos(cursor.getString(2));
             user.setEmail(cursor.getString(3));
@@ -104,8 +106,11 @@ public class DataManager extends SQLiteOpenHelper {
 
     public boolean insert (Users user) {
         boolean existe = false;
-        if(buscar(user.getEmail())==0){
+        System.out.printf("ESTOY AQUI");
+        if(buscar(user.getLogin())==0){
+
             ContentValues values = new ContentValues();
+            values.put(LOGIN, user.getLogin());
             values.put(NOMBRE, user.getNombre());
             values.put(APELLIDOS, user.getApellidos());
             values.put(EMAIL, user.getEmail());

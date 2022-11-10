@@ -30,9 +30,7 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-
         Login = findViewById(R.id.textLogin);
-
         nombre = findViewById(R.id.textNombre);
         apellidos = findViewById(R.id.textApellidos);
         email = findViewById(R.id.textEmail);
@@ -51,10 +49,11 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+                String ANTES="Estoy aqui";
+
                 // 1-Para transformar los datos en minusculas.
 
-                String login = Login.getText().toString();
-
+                String mlogin = Login.getText().toString().toLowerCase();
                 String mnombre = nombre.getText().toString().toLowerCase();
                 String mapellidos = apellidos.getText().toString().toLowerCase();
                 String memail = email.getText().toString().toLowerCase();
@@ -62,21 +61,29 @@ public class RegisterActivity extends AppCompatActivity {
                 String mpassword2 = password2.getText().toString();
 
 
-                // 2-Comprobar que las contraseñas son iguales y que los campos no estan vacios.
-                if(mpassword1.equals(mpassword2) && !mnombre.isEmpty() && !mapellidos.isEmpty() && !memail.isEmpty() && !mpassword1.isEmpty() && !mpassword2.isEmpty()){
 
+                // 2-Comprobar que las contraseñas son iguales y que los campos no estan vacios.
+                //TODO -La parte de la comparación de las variable de "isEmpty()" eliminarla porque se puede controlar desde el Servidor (Eclipse)
+                if(mpassword1.equals(mpassword2) && !mlogin.isEmpty() && !mnombre.isEmpty() && !mapellidos.isEmpty() && !memail.isEmpty() && !mpassword1.isEmpty() && !mpassword2.isEmpty()){
+
+                    usuario.setLogin(mlogin);
                     usuario.setApellidos(mapellidos);
                     usuario.setEmail(memail);
                     usuario.setNombre(mnombre);
                     usuario.setPassword(mpassword1);
 
-                    dataManager.insert(usuario);
-                    existeUsuario();
-                    Toast.makeText(getApplicationContext(), getString( R.string.insertadocorrectamente ), Toast.LENGTH_LONG).show();
 
-                    intentacanciones.putExtra("Login",login);
+                    Toast.makeText(getApplicationContext(), ANTES , Toast.LENGTH_LONG).show();
+
+                    dataManager.insert(usuario);
+
+                    existeUsuario();
+
+
+                    intentacanciones.putExtra("Login",mlogin);
                     intentacanciones.putExtra("Password",mpassword1);
                     startActivity(intentacanciones);
+                    Toast.makeText(getApplicationContext(), getString( R.string.insertadocorrectamente ), Toast.LENGTH_LONG).show();
 
                 }else{
                     Toast.makeText(getApplicationContext(), getString( R.string.insertadonocorrectamente ), Toast.LENGTH_LONG).show();
