@@ -104,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         for(int i = 0; i<personas.size();i++){
-            Toast.makeText(getApplicationContext(), "Estoy en el for del main", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getApplicationContext(), "Estoy en el for del main", Toast.LENGTH_SHORT).show();
 
             if(!personas.get(i).getLogin().equalsIgnoreCase(usuario)){
                 Toast.makeText(getApplicationContext(), "He iniciadooo", Toast.LENGTH_SHORT).show();

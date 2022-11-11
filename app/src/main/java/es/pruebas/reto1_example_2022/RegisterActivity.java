@@ -16,7 +16,6 @@ import java.util.Locale;
 public class RegisterActivity extends AppCompatActivity {
 
     public EditText Login;
-
     public EditText nombre;
     public EditText apellidos;
     public EditText email;
@@ -72,11 +71,11 @@ public class RegisterActivity extends AppCompatActivity {
                     usuario.setEmail(memail);
                     usuario.setPassword(mpassword1);
 
-
+                    existeUsuario();
 
                     dataManager.insert(usuario);
                   //  Toast.makeText(getApplicationContext(), ANTES , Toast.LENGTH_LONG).show();
-                    existeUsuario();
+
 
 
                     intentacanciones.putExtra("Login",mlogin);
