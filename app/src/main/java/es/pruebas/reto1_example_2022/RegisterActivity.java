@@ -49,7 +49,7 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                String ANTES="Estoy aqui";
+                String ANTES="Estoy antes de el if de comprobar valores nulos";
 
                 // 1-Para transformar los datos en minusculas.
 
@@ -90,8 +90,8 @@ public class RegisterActivity extends AppCompatActivity {
             }
             public void existeUsuario(){
 
-                String existe="Ya existe un usuario con ese email o ese login";
-                String noexiste="Registro correcto";
+                String existe="Registro incorrecto, ya existe un usuario con ese email o ese login";
+                String noexiste="Registro correcto, usuario nuevo";
 
                 String email1 = email.toString();
                 String login1 = Login.toString();
