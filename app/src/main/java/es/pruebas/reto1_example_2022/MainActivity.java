@@ -104,16 +104,17 @@ public class MainActivity extends AppCompatActivity {
 
 
         for(int i = 0; i<personas.size();i++){
+            Toast.makeText(getApplicationContext(), "Estoy en el for del main", Toast.LENGTH_SHORT).show();
 
-            if(personas.get(i).getLogin().equalsIgnoreCase(usuario)){
-                Toast.makeText(getApplicationContext(), "He iniciadooo", Toast.LENGTH_LONG).show();
+            if(!personas.get(i).getLogin().equalsIgnoreCase(usuario)){
+                Toast.makeText(getApplicationContext(), "He iniciadooo", Toast.LENGTH_SHORT).show();
 
                 Intent intentComunity = new Intent(MainActivity.this, ComunityActivity.class);
                 startActivity(intentComunity);
                 //esta bien
             }else{
 
-
+                Toast.makeText(getApplicationContext(), "No he iniciadooo", Toast.LENGTH_SHORT).show();
                 //no esta bien
             }
 

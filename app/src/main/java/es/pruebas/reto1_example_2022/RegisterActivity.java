@@ -75,14 +75,14 @@ public class RegisterActivity extends AppCompatActivity {
 
 
                     dataManager.insert(usuario);
-                    Toast.makeText(getApplicationContext(), ANTES , Toast.LENGTH_LONG).show();
+                  //  Toast.makeText(getApplicationContext(), ANTES , Toast.LENGTH_LONG).show();
                     existeUsuario();
 
 
                     intentacanciones.putExtra("Login",mlogin);
                     intentacanciones.putExtra("Password",mpassword1);
                     startActivity(intentacanciones);
-                    Toast.makeText(getApplicationContext(), getString( R.string.insertadocorrectamente ), Toast.LENGTH_LONG).show();
+                   // Toast.makeText(getApplicationContext(), getString( R.string.insertadocorrectamente ), Toast.LENGTH_LONG).show();
 
                 }else{
                     Toast.makeText(getApplicationContext(), getString( R.string.insertadonocorrectamente ), Toast.LENGTH_LONG).show();
