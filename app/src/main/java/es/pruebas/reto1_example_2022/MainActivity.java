@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -105,7 +106,8 @@ public class MainActivity extends AppCompatActivity {
         for(int i = 0; i<personas.size();i++){
 
             if(personas.get(i).getLogin().equalsIgnoreCase(usuario)){
-                System.out.println("Estoy dentro");
+                Toast.makeText(getApplicationContext(), "He iniciadooo", Toast.LENGTH_LONG).show();
+
                 Intent intentComunity = new Intent(MainActivity.this, ComunityActivity.class);
                 startActivity(intentComunity);
                 //esta bien
