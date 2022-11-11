@@ -71,45 +71,59 @@ public class RegisterActivity extends AppCompatActivity {
                     usuario.setEmail(memail);
                     usuario.setPassword(mpassword1);
 
-                    existeUsuario();
+                    boolean error = existeUsuario(usuario);
 
+                    //si existe
+                    if(error == false){
                     dataManager.insert(usuario);
+                        intentacanciones.putExtra("Login",mlogin);
+                        intentacanciones.putExtra("Password",mpassword1);
+                        startActivity(intentacanciones);
+                    }else{
+
+                        //msj de que existe y no se puede registrar.
+
+
+                    }
                   //  Toast.makeText(getApplicationContext(), ANTES , Toast.LENGTH_LONG).show();
 
 
 
-                    intentacanciones.putExtra("Login",mlogin);
-                    intentacanciones.putExtra("Password",mpassword1);
-                    startActivity(intentacanciones);
+
                    // Toast.makeText(getApplicationContext(), getString( R.string.insertadocorrectamente ), Toast.LENGTH_LONG).show();
 
                 }else{
                     Toast.makeText(getApplicationContext(), getString( R.string.insertadonocorrectamente ), Toast.LENGTH_LONG).show();
                 }
             }
-            public void existeUsuario(){
+            public boolean existeUsuario(Users usuario){
 
-                String existe="Registro incorrecto, ya existe un usuario con ese email o ese login";
-                String noexiste="Registro correcto, usuario nuevo";
+                //String existe="Registro incorrecto, ya existe un usuario con ese email o ese login";
+                //String noexiste="Registro correcto, usuario nuevo";
 
-                String email1 = email.toString();
-                String login1 = Login.toString();
+                Boolean existe = false;//no existe de base
 
                 //DataManager data = new DataManager(this);
-                dataManager.getWritableDatabase();
+                //dataManager.getWritableDatabase();
                 List<Users> personas = dataManager.selectAllUsers();
 
+                System.out.println("aaaaa"+personas.size());
+
                 for(int i = 0; i<personas.size();i++){
-                    if(personas.get(i).getEmail().equalsIgnoreCase(email1) && personas.get(i).getLogin().equalsIgnoreCase(login1)){
-
-                        Toast.makeText(getApplicationContext(), existe, Toast.LENGTH_SHORT).show();
-
+                    if(personas.get(i).getLogin().equalsIgnoreCase(usuario.getLogin()) ){
+                        //&& personas.get(i).getLogin().equalsIgnoreCase(login1)
+                        //Toast.makeText(getApplicationContext(), existe, Toast.LENGTH_SHORT).show();
+                        existe = true;
+                        break;
                     }else{
 
-                        Toast.makeText(getApplicationContext(), noexiste, Toast.LENGTH_SHORT).show();
+                        existe=false;
+                        //Toast.makeText(getApplicationContext(), noexiste, Toast.LENGTH_SHORT).show();
 
                     }
                 }
+
+                return existe;
             }
         });
 
