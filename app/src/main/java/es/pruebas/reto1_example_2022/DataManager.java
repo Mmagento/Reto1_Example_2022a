@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,11 +65,11 @@ public class DataManager extends SQLiteOpenHelper {
         while (cursor.moveToNext()) {
             user = new Users();
             user.setLogin(cursor.getString(0));
-            user.setId(cursor.getInt(1));
-            user.setNombre(cursor.getString(2));
-            user.setApellidos(cursor.getString(3));
-            user.setEmail(cursor.getString(4));
-            user.setPassword(cursor.getString(5));
+            //user.setId(cursor.getInt(1));
+            user.setNombre(cursor.getString(1));
+            user.setApellidos(cursor.getString(2));
+            user.setEmail(cursor.getString(3));
+            user.setPassword(cursor.getString(4));
 
 
             ret.add(user);
@@ -106,8 +107,14 @@ public class DataManager extends SQLiteOpenHelper {
 
     public boolean insert (Users user) {
         boolean existe = false;
-        System.out.printf("ESTOY AQUI");
+
+
+
+        Toast.makeText(context, "ANTES DEL IF", Toast.LENGTH_LONG).show();
+
         if(buscar(user.getLogin())==0){
+
+            Toast.makeText(context, "DESPUES DE EL IF", Toast.LENGTH_LONG).show();
 
             ContentValues values = new ContentValues();
             values.put(LOGIN, user.getLogin());
@@ -189,7 +196,7 @@ public class DataManager extends SQLiteOpenHelper {
         int x=0;
         ret = selectAllUsers();
         for (Users us:ret) {
-            if(us.getEmail().equalsIgnoreCase(u)){
+            if(us.getLogin().equalsIgnoreCase(u)){
                 x++;
             }
         }

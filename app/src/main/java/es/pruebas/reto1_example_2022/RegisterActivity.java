@@ -67,16 +67,15 @@ public class RegisterActivity extends AppCompatActivity {
                 if(mpassword1.equals(mpassword2) && !mlogin.isEmpty() && !mnombre.isEmpty() && !mapellidos.isEmpty() && !memail.isEmpty() && !mpassword1.isEmpty() && !mpassword2.isEmpty()){
 
                     usuario.setLogin(mlogin);
+                    usuario.setNombre(mnombre);
                     usuario.setApellidos(mapellidos);
                     usuario.setEmail(memail);
-                    usuario.setNombre(mnombre);
                     usuario.setPassword(mpassword1);
 
 
-                    Toast.makeText(getApplicationContext(), ANTES , Toast.LENGTH_LONG).show();
 
                     dataManager.insert(usuario);
-
+                    Toast.makeText(getApplicationContext(), ANTES , Toast.LENGTH_LONG).show();
                     existeUsuario();
 
 
