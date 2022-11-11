@@ -92,8 +92,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void inicioSesion(){
 
-        String usuario = editUser.toString();
-        String password = editPassword.toString();
+        String usuario = editUser.getText().toString();
+        String password = editPassword.getText().toString();
 
         DataManager data = new DataManager(this);
         data.getWritableDatabase();
