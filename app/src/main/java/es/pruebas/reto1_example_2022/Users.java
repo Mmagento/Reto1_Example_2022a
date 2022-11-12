@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 public class Users implements Serializable {
 
+
     private int id;
     private String Login;
     private String nombre;

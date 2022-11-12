@@ -21,12 +21,21 @@ public class MainActivity extends AppCompatActivity {
     private EditText editUser;
     private EditText editPassword;
     private CheckBox recordarUsuario;
-    Button inicarSesion, registro;
+    Button iniciarSesion, registro;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+        editUser = findViewById(R.id.textUserLogin);
+        editPassword = findViewById(R.id.textPasswordLogin);
+        recordarUsuario = findViewById(R.id.recordarSesion);
+        iniciarSesion = findViewById(R.id.botonIniciarLogin);
+        registro = findViewById(R.id.botonRegistroLogin);
+        //EditText userField = findViewById(R.id.textUserLogin);
+        //EditText passwordField= findViewById(R.id.textPasswordLogin);
 
         //---DATOS RECOGIDOS DE EL INTENT DE RegisterActivity---
         Bundle extras = getIntent().getExtras();
@@ -34,31 +43,22 @@ public class MainActivity extends AppCompatActivity {
             String login = extras.getString("Login");
             String password = extras.getString("Password");
 
-            EditText US = findViewById(R.id.textUserLogin);
-            US.setText(login);
-
-            EditText PAS= findViewById(R.id.textPasswordLogin);
-            PAS.setText(password);
+            editUser.setText(login);
+            editPassword.setText(password);
         }
-        //------------------------------------------------------
 
-        editUser = findViewById(R.id.textUserLogin);
-        editPassword = findViewById(R.id.textPasswordLogin);
-        recordarUsuario = findViewById(R.id.recordarSesion);
-        inicarSesion = findViewById(R.id.botonIniciarLogin);
-        registro = findViewById(R.id.botonRegistroLogin);
-
-
-
-        inicarSesion.setOnClickListener(new View.OnClickListener() {
+        iniciarSesion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                pasarMinusculas();
-                inicioSesion();
-                existeUsuario();
 
+                boolean login = inicioSesion();
+                if(login){
+                    Intent intentComunity = new Intent(MainActivity.this, ComunityActivity.class);
+                    startActivity(intentComunity);
+                }else{
 
-                //intentComunity.putExtra("email", editUser);
+                    Toast.makeText(getApplicationContext(), R.string.errorInicioSesion , Toast.LENGTH_SHORT).show();
+                }
 
             }
         });
@@ -80,49 +80,29 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void existeUsuario(){
-        String mnombre = editUser.getText().toString();
-        String mapellidos = editPassword.getText().toString();
-    }
-
-    protected void pasarMinusculas(){
-
-        editUser.toString().toLowerCase();
-        editPassword.toString().toLowerCase();
-    }
-
-    private void inicioSesion(){
-
-        String usuario = editUser.getText().toString();
-        String password = editPassword.getText().toString();
+    private Boolean inicioSesion(){
 
         DataManager data = new DataManager(this);
-        data.getWritableDatabase();
+
+        String usuarioString = editUser.getText().toString().toLowerCase();
+        String password = editPassword.getText().toString();
+        Boolean existe=false;
+
         List<Users> personas = data.selectAllUsers();
 
-        System.out.println(personas);
-
-
-        for(int i = 0; i<personas.size();i++){
-            //Toast.makeText(getApplicationContext(), "Estoy en el for del main", Toast.LENGTH_SHORT).show();
-
-            if(!personas.get(i).getLogin().equalsIgnoreCase(usuario)){
-                Toast.makeText(getApplicationContext(), "He iniciadooo", Toast.LENGTH_SHORT).show();
-
-                Intent intentComunity = new Intent(MainActivity.this, ComunityActivity.class);
-                startActivity(intentComunity);
-                //esta bien
+        for(int i = 0; i < personas.size();i++){
+            if(personas.get(i).getLogin().equalsIgnoreCase(usuarioString)){
+                if (personas.get(i).getPassword().equals(password)){
+                    existe = true;
+                    break;
+                }else {
+                    existe = false;
+                }
             }else{
-
-                Toast.makeText(getApplicationContext(), "No he iniciadooo", Toast.LENGTH_SHORT).show();
-                //no esta bien
+                existe = false;
             }
-
-
-
         }
-
-
+        return existe;
     }
 
 }
