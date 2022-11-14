@@ -13,6 +13,8 @@ import android.widget.Toast;
 
 import java.util.List;
 
+import es.pruebas.reto1_example_2022.beans.Usuario;
+
 /**
  * Main Activity
  */
@@ -88,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
         String password = editPassword.getText().toString();
         Boolean existe=false;
 
-        List<Users> personas = data.selectAllUsers();
+        List<Usuario> personas = data.selectAllUsers();
 
         for(int i = 0; i < personas.size();i++){
             if(personas.get(i).getLogin().equalsIgnoreCase(usuarioString)){

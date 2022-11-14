@@ -1,27 +1,27 @@
 package es.pruebas.reto1_example_2022.network;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 
-import es.pruebas.reto1_example_2022.beans.Video;
+import es.pruebas.reto1_example_2022.beans.Cancion;
 
 /**
- * One class per endpoint. This one is for a single Video
+ * One class per endpoint. This one is for a list of Videos
  */
-public class VideoFacade extends NetConfiguration implements Runnable {
+public class CancionesFacade extends NetConfiguration implements Runnable {
 
-    private final String theUrl = theBaseUrl + "getVideo";
+    private final String theUrl = theBaseUrl + "getAllVideos";
 
-    private final int id;
-    private Video response;
+    private ArrayList<Cancion> response;
 
-    public VideoFacade(int id) {
+    public CancionesFacade() {
         super();
-        this.id = id;
     }
 
     @Override
@@ -29,10 +29,9 @@ public class VideoFacade extends NetConfiguration implements Runnable {
 
         try {
             // The URL
-            URL url = new URL( theUrl + "\\1");
+            URL url = new URL( theUrl);
             HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
             httpURLConnection.setRequestMethod( "GET" );
-            httpURLConnection.setRequestProperty("Content-Type", "text/plain; charset=utf-8");
 
             // Sending...
             int responseCode = httpURLConnection.getResponseCode();
@@ -56,12 +55,20 @@ public class VideoFacade extends NetConfiguration implements Runnable {
                 // Processing the JSON...
                 String theUnprocessedJSON = response.toString();
 
-                JSONObject mainObject = new JSONObject(theUnprocessedJSON);
+                JSONArray mainArray = new JSONArray (theUnprocessedJSON);
 
-                this.response = new Video();
-                this.response.setId(mainObject.getInt("id"));
-                this.response.setTitle( mainObject.getString("title"));
-                this.response.setUrl( mainObject.getString("url"));
+                this.response = new ArrayList<Cancion>();
+
+                Cancion cancion;
+                for(int i=0; i < mainArray.length(); i++) {
+                    JSONObject object = mainArray.getJSONObject( i );
+
+                    cancion= new Cancion();
+                    cancion.setId((long) object.getInt("id"));
+                    cancion.setTitulo( object.getString("title"));
+                    cancion.setUrl( object.getString("url"));
+                    this.response.add( cancion );
+                }
             }
 
         } catch (Exception e) {
@@ -69,7 +76,7 @@ public class VideoFacade extends NetConfiguration implements Runnable {
         }
     }
 
-    public Video getResponse() {
+    public ArrayList<Cancion> getResponse() {
         return response;
     }
 }

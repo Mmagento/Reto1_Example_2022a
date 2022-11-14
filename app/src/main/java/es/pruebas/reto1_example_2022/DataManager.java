@@ -10,6 +10,8 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+import es.pruebas.reto1_example_2022.beans.Usuario;
+
 public class DataManager extends SQLiteOpenHelper {
 
     private static final String DB_NAME = "reto1_grupo4.db";
@@ -36,7 +38,7 @@ public class DataManager extends SQLiteOpenHelper {
 
     private final Context context;
 
-    public List<Users> ret = new ArrayList<>();
+    public List<Usuario> ret = new ArrayList<>();
 
     public DataManager(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
@@ -56,14 +58,14 @@ public class DataManager extends SQLiteOpenHelper {
 
     /* Select All */
 
-    public List<Users> selectAllUsers () {
-        List<Users> ret = new ArrayList<>();
+    public List<Usuario> selectAllUsers () {
+        List<Usuario> ret = new ArrayList<>();
         String query = "SELECT * FROM " + TABLE_NAME;
         SQLiteDatabase sQLiteDatabase = this.getWritableDatabase();
         Cursor cursor = sQLiteDatabase.rawQuery(query, null);
-        Users user;
+        Usuario user;
         while (cursor.moveToNext()) {
-            user = new Users();
+            user = new Usuario();
             user.setLogin(cursor.getString(0));
             //user.setId(cursor.getInt(1));
             user.setNombre(cursor.getString(1));
@@ -81,13 +83,13 @@ public class DataManager extends SQLiteOpenHelper {
 
     /* Select by Id */
 
-    public Users selectById (int id) {
+    public Usuario selectById (int id) {
         String query = "Select * FROM " + TABLE_NAME + " WHERE " + ID +
                 " = " + "'" + id + "'";
         SQLiteDatabase sQLiteDatabase = this.getWritableDatabase();
         Cursor cursor = sQLiteDatabase.rawQuery(query, null);
 
-        Users user = new Users ();
+        Usuario user = new Usuario ();
         if (cursor.moveToFirst()) {
             cursor.moveToFirst();
             user.setId(cursor.getInt(0));
@@ -105,7 +107,7 @@ public class DataManager extends SQLiteOpenHelper {
 
     /* Insertar */
 
-    public boolean insert (Users user) {
+    public boolean insert (Usuario user) {
         boolean existe = false;
 
        // Toast.makeText(context, "ANTES DEL IF", Toast.LENGTH_LONG).show();
@@ -133,7 +135,7 @@ public class DataManager extends SQLiteOpenHelper {
 
     /* Actualizar */
 
-    public boolean update (Users user) {
+    public boolean update (Usuario user) {
         SQLiteDatabase sQLiteDatabase = this.getWritableDatabase();
         ContentValues args = new ContentValues();
         args.put(ID, user.getId());
@@ -150,7 +152,7 @@ public class DataManager extends SQLiteOpenHelper {
     public int deleteById (int id) {
         int ret;
         SQLiteDatabase sQLiteDatabase = this.getWritableDatabase();
-        Users user = new Users ();
+        Usuario user = new Usuario ();
         user.setId(id);
         ret = sQLiteDatabase.delete(TABLE_NAME, ID + "=?",
                 new String[] {
@@ -193,7 +195,7 @@ public class DataManager extends SQLiteOpenHelper {
     public int buscar(String u){
         int x=0;
         ret = selectAllUsers();
-        for (Users us:ret) {
+        for (Usuario us:ret) {
             if(us.getLogin().equalsIgnoreCase(u)){
                 x++;
             }

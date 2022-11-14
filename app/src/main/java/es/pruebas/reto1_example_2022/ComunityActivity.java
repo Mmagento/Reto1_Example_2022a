@@ -13,9 +13,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.util.ArrayList;
 
 import es.pruebas.reto1_example_2022.adapters.MyTableAdapter;
-import es.pruebas.reto1_example_2022.beans.Video;
-import es.pruebas.reto1_example_2022.network.VideoFacade;
-import es.pruebas.reto1_example_2022.network.VideosFacade;
+import es.pruebas.reto1_example_2022.beans.Cancion;
+import es.pruebas.reto1_example_2022.network.CancionFacade;
+import es.pruebas.reto1_example_2022.network.CancionesFacade;
 
 public class ComunityActivity extends AppCompatActivity {
     @Override
@@ -23,7 +23,7 @@ public class ComunityActivity extends AppCompatActivity {
         super.onCreate( savedInstanceState );
         setContentView( R.layout.activity_comunity );
 
-        ArrayList<Video> listado = new ArrayList<>();
+        ArrayList<Cancion> listado = new ArrayList<>();
 
         MyTableAdapter myTableAdapter = new MyTableAdapter (this, R.layout.myrow_layout, listado);
         ((ListView) findViewById( R.id.listView)).setAdapter (myTableAdapter);
@@ -32,8 +32,8 @@ public class ComunityActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (isConnected()) {
-                    VideoFacade videoFacade = new VideoFacade( 1 );
-                    Thread thread = new Thread( videoFacade );
+                    CancionFacade cancionFacade = new CancionFacade( 1 );
+                    Thread thread = new Thread(cancionFacade);
                     try {
                         thread.start();
                         thread.join(); // Awaiting response from the server...
@@ -42,17 +42,18 @@ public class ComunityActivity extends AppCompatActivity {
                     }
 
                     // Processing the answer
-                    Video user = videoFacade.getResponse();
-                    listado.add( user );
+                    Cancion cancion = cancionFacade.getResponse();
+                    listado.add( cancion );
                     ((ListView) ComunityActivity.this.findViewById( R.id.listView )).setAdapter( myTableAdapter );
                 }
             }
         } );
 
+
         findViewById(R.id.getAllButton ).setOnClickListener( v -> {
             if (isConnected()) {
-                VideosFacade videosFacade = new VideosFacade();
-                Thread thread = new Thread( videosFacade );
+                CancionesFacade cancionesFacade = new CancionesFacade();
+                Thread thread = new Thread(cancionesFacade);
                 try {
                     thread.start();
                     thread.join(); // Awaiting response from the server...
@@ -60,8 +61,8 @@ public class ComunityActivity extends AppCompatActivity {
                     // Nothing to do here...
                 }
                 // Processing the answer
-                ArrayList<Video> listVideos = videosFacade.getResponse();
-                listado.addAll( listVideos );
+                ArrayList<Cancion> listCanciones = cancionesFacade.getResponse();
+                listado.addAll( listCanciones );
                 ((ListView) findViewById( R.id.listView)).setAdapter (myTableAdapter);
             }
         });

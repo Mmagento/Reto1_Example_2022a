@@ -12,19 +12,19 @@ import androidx.annotation.NonNull;
 import java.util.ArrayList;
 
 import es.pruebas.reto1_example_2022.R;
-import es.pruebas.reto1_example_2022.beans.Video;
+import es.pruebas.reto1_example_2022.beans.Cancion;
 
 /**
  * Simple adapter for the table
  */
-public class MyTableAdapter extends ArrayAdapter<Video> {
+public class MyTableAdapter extends ArrayAdapter<Cancion> {
 
-    private final ArrayList <Video> listado;
+    private final ArrayList <Cancion> listadoCancion;
     private final Context context;
 
-    public MyTableAdapter(@NonNull Context context, int resource, @NonNull ArrayList<Video> listado) {
-        super( context, resource, listado );
-        this.listado = listado;
+    public MyTableAdapter(@NonNull Context context, int resource, @NonNull ArrayList<Cancion> listadoCancion) {
+        super( context, resource, listadoCancion );
+        this.listadoCancion = listadoCancion;
         this.context = context;
     }
 
@@ -38,9 +38,9 @@ public class MyTableAdapter extends ArrayAdapter<Video> {
         LayoutInflater layoutInflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = layoutInflater.inflate ( R.layout.myrow_layout, null);
 
-        ((TextView) view.findViewById( R.id.userIdTextView)).setText(listado.get(position).getId() + "");
-        ((TextView) view.findViewById( R.id.userNameTextView)).setText(listado.get(position).getTitle());
-        ((TextView) view.findViewById( R.id.locationTextView)).setText(listado.get(position).getUrl());
+        ((TextView) view.findViewById( R.id.userIdTextView)).setText(listadoCancion.get(position).getId() + "");
+        ((TextView) view.findViewById( R.id.userNameTextView)).setText(listadoCancion.get(position).getTitulo());
+        ((TextView) view.findViewById( R.id.locationTextView)).setText(listadoCancion.get(position).getUrl());
 
         return view;
     }

@@ -1,9 +1,10 @@
-package es.pruebas.reto1_example_2022;
+package es.pruebas.reto1_example_2022.beans;
 
 import java.io.Serializable;
 
-public class Users implements Serializable {
+public class Usuario implements Serializable {
 
+    private static final long serialVersionUID = 5428782614293183346L;
 
     private int id;
     private String Login;
@@ -12,7 +13,7 @@ public class Users implements Serializable {
     private String email;
     private String password;
 
-    public Users(){}
+    public Usuario(){}
 
     public int getId() {
         return id;
@@ -57,4 +58,6 @@ public class Users implements Serializable {
     public void setPassword(String password) {
         this.password = password;
     }
+
+
 }

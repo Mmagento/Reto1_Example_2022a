@@ -13,6 +13,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.util.List;
 import java.util.Locale;
 
+import es.pruebas.reto1_example_2022.beans.Usuario;
+
 public class RegisterActivity extends AppCompatActivity {
 
     public EditText Login;
@@ -42,7 +44,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         DataManager dataManager = new DataManager(this);
 
-        Users usuario = new Users();
+        Usuario usuario = new Usuario();
 
         botonRegistro.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,7 +95,7 @@ public class RegisterActivity extends AppCompatActivity {
 
             Boolean existe = false;//no existe de base
 
-            List<Users> personas = dataManager.selectAllUsers();
+            List<Usuario> personas = dataManager.selectAllUsers();
 
             for(int i = 0; i<personas.size();i++){
                 if(personas.get(i).getLogin().equalsIgnoreCase(login) ){
