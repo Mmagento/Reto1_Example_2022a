@@ -107,14 +107,7 @@ public class DataManager extends SQLiteOpenHelper {
 
     /* Insertar */
 
-    public boolean insert (Usuario user) {
-        boolean existe = false;
-
-       // Toast.makeText(context, "ANTES DEL IF", Toast.LENGTH_LONG).show();
-
-        if(buscar(user.getLogin())==0){
-
-//            Toast.makeText(context, "", Toast.LENGTH_LONG).show();
+    public void insert (Usuario user) {
 
             ContentValues values = new ContentValues();
             values.put(LOGIN, user.getLogin());
@@ -127,10 +120,6 @@ public class DataManager extends SQLiteOpenHelper {
             sQLiteDatabase.insert(TABLE_NAME, null, values);
             sQLiteDatabase.close();
 
-        } else {
-            return existe =true;
-        }
-        return existe;
     }
 
     /* Actualizar */
@@ -190,17 +179,5 @@ public class DataManager extends SQLiteOpenHelper {
         return ret;
     }
 
-    //Buscar usuario
-
-    public int buscar(String u){
-        int x=0;
-        ret = selectAllUsers();
-        for (Usuario us:ret) {
-            if(us.getLogin().equalsIgnoreCase(u)){
-                x++;
-            }
-        }
-        return x;
-    }
 
 }
