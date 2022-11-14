@@ -114,7 +114,7 @@ public class DataManager extends SQLiteOpenHelper {
 
         if(buscar(user.getLogin())==0){
 
-//            Toast.makeText(context, "DESPUES DE EL IF", Toast.LENGTH_LONG).show();
+//            Toast.makeText(context, "", Toast.LENGTH_LONG).show();
 
             ContentValues values = new ContentValues();
             values.put(LOGIN, user.getLogin());

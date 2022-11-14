@@ -40,7 +40,7 @@ public class RegisterActivity extends AppCompatActivity {
         botonRegistro = findViewById(R.id.botonRegistro);
         botonSalir = findViewById(R.id.botonSalir);
 
-        Intent intentacanciones = new Intent(RegisterActivity.this, MainActivity.class);
+        Intent intentalogin = new Intent(RegisterActivity.this, MainActivity.class);
 
         DataManager dataManager = new DataManager(this);
 
@@ -69,9 +69,9 @@ public class RegisterActivity extends AppCompatActivity {
                         usuario.setPassword(mpassword1);
 
                         dataManager.insert(usuario);
-                        intentacanciones.putExtra("Login",mlogin);
-                        intentacanciones.putExtra("Password",mpassword1);
-                        startActivity(intentacanciones);
+                        intentalogin.putExtra("Login",mlogin);
+                        intentalogin.putExtra("Password",mpassword1);
+                        startActivity(intentalogin);
                         Toast.makeText(RegisterActivity.this, R.string.registradocorrectamente, Toast.LENGTH_SHORT).show();
                     }
                 }else{
@@ -84,7 +84,7 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                startActivity(intentacanciones);
+                startActivity(intentalogin);
             }
         });
 

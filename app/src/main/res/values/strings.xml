@@ -28,6 +28,6 @@
     <string name="getAllButton">Obtener todos</string>
     <string name="getOneButton">Obtener uno</string>
     <string name="usuarioYaRegistrado">El usuario ya se encontraba en el sistema</string>
-    <string name="registradocorrectamente">Usuario registrado correctamente</string>
+    <string name="registradocorrectamente">Redirigiendo a el login...</string>
     <string name="errorInicioSesion">Error en el Inicio de Sesion</string>
 </resources>

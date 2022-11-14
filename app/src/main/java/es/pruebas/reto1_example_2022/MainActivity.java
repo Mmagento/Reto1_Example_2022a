@@ -55,10 +55,10 @@ public class MainActivity extends AppCompatActivity {
 
                 boolean login = inicioSesion();
                 if(login){
+                    Toast.makeText(getApplicationContext(),"HOLAA",Toast.LENGTH_SHORT);
                     Intent intentComunity = new Intent(MainActivity.this, ComunityActivity.class);
                     startActivity(intentComunity);
                 }else{
-
                     Toast.makeText(getApplicationContext(), R.string.errorInicioSesion , Toast.LENGTH_SHORT).show();
                 }
 

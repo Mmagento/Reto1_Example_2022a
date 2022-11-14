@@ -40,7 +40,6 @@ public class ComunityActivity extends AppCompatActivity {
                     } catch (InterruptedException e) {
                         // Nothing to do here...
                     }
-
                     // Processing the answer
                     Cancion cancion = cancionFacade.getResponse();
                     listado.add( cancion );
