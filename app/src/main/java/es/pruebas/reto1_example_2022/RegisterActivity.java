@@ -1,18 +1,25 @@
 package es.pruebas.reto1_example_2022;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
+import es.pruebas.reto1_example_2022.beans.Cancion;
 import es.pruebas.reto1_example_2022.beans.Usuario;
+import es.pruebas.reto1_example_2022.network.CancionesFacade;
 import es.pruebas.reto1_example_2022.network.UsuarioPost;
 import es.pruebas.reto1_example_2022.network.UsuariosFacade;
 
@@ -66,19 +73,22 @@ public class RegisterActivity extends AppCompatActivity {
                         usuario.setEmail(memail);
                         usuario.setPassword(mpassword1);
 
-                        new UsuarioPost(usuario);
-                        intentalogin.putExtra("Login",memail);
-                        intentalogin.putExtra("Password",mpassword1);
-                        startActivity(intentalogin);
-                        Toast.makeText(RegisterActivity.this, R.string.registradocorrectamente, Toast.LENGTH_SHORT).show();
+                        int registrado = registrarUsuario(usuario);
+                        System.out.println("BRRRRRRRRRRRRRRRRRRRR"+registrado);
+                        if(registrado==1){
+                            intentalogin.putExtra("Login",memail);
+                            intentalogin.putExtra("Password",mpassword1);
+                            startActivity(intentalogin);
+                            Toast.makeText(RegisterActivity.this, R.string.registradocorrectamente, Toast.LENGTH_SHORT).show();
+                        }
                     }else{
                         Toast.makeText(RegisterActivity.this, R.string.usuarioYaRegistrado, Toast.LENGTH_SHORT).show();
                     }
                 }else{
-                    Toast.makeText(RegisterActivity.this, R.string.errorContraseñas, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(RegisterActivity.this, R.string.errorContraseñas, Toast.LENGTH_SHORT).show();
                 }
             }else{
-                Toast.makeText(RegisterActivity.this, R.string.errorFormatoEmail, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(RegisterActivity.this, R.string.errorFormatoEmail, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -113,6 +123,41 @@ public class RegisterActivity extends AppCompatActivity {
     private boolean validarEmail(String email) {
         Pattern pattern = Patterns.EMAIL_ADDRESS;
         return pattern.matcher(email).matches();
+    }
+
+
+    private int registrarUsuario(Usuario usuario){
+
+        int registrado = 0;
+
+        if (isConnected()) {
+            UsuarioPost usuarioPost =  new UsuarioPost(usuario);
+            Thread thread = new Thread(usuarioPost);
+            try {
+                thread.start();
+                thread.join(); // Awaiting response from the server...
+            } catch (InterruptedException e) {
+                // Nothing to do here...
+            }
+            // Processing the answer
+
+            registrado = usuarioPost.getResponse();
+        }
+        return registrado;
+    }
+
+    public boolean isConnected() {
+        boolean ret = false;
+        try {
+            ConnectivityManager connectivityManager = (ConnectivityManager) getApplicationContext()
+                    .getSystemService( Context.CONNECTIVITY_SERVICE);
+            NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+            if ((networkInfo != null) && (networkInfo.isAvailable()) && (networkInfo.isConnected()))
+                ret = true;
+        } catch (Exception e) {
+            Toast.makeText(getApplicationContext(), getString(R.string.error_communication), Toast.LENGTH_SHORT).show();
+        }
+        return ret;
     }
 
 }
