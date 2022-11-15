@@ -1,9 +1,8 @@
 package es.pruebas.reto1_example_2022;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
+import android.util.Patterns;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -11,13 +10,15 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.List;
-import java.util.Locale;
+import java.util.regex.Pattern;
 
 import es.pruebas.reto1_example_2022.beans.Usuario;
+import es.pruebas.reto1_example_2022.network.UsuarioPost;
+import es.pruebas.reto1_example_2022.network.UsuariosFacade;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    public EditText Login;
+
     public EditText nombre;
     public EditText apellidos;
     public EditText email;
@@ -31,7 +32,7 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        Login = findViewById(R.id.textLogin);
+
         nombre = findViewById(R.id.textNombre);
         apellidos = findViewById(R.id.textApellidos);
         email = findViewById(R.id.textEmail);
@@ -40,74 +41,78 @@ public class RegisterActivity extends AppCompatActivity {
         botonRegistro = findViewById(R.id.botonRegistro);
         botonSalir = findViewById(R.id.botonSalir);
 
-        Intent intentacanciones = new Intent(RegisterActivity.this, MainActivity.class);
-
-        DataManager dataManager = new DataManager(this);
+        Intent intentalogin = new Intent(RegisterActivity.this, MainActivity.class);
 
         Usuario usuario = new Usuario();
 
-        botonRegistro.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        botonRegistro.setOnClickListener(view -> {
 
-                String mlogin = Login.getText().toString().toLowerCase();
-                String mnombre = nombre.getText().toString().toLowerCase();
-                String mapellidos = apellidos.getText().toString().toLowerCase();
-                String memail = email.getText().toString().toLowerCase();
-                String mpassword1 = password1.getText().toString();
-                String mpassword2 = password2.getText().toString();
 
-                boolean error = existeUsuario(mlogin);
+            String mnombre = nombre.getText().toString().toLowerCase();
+            String mapellidos = apellidos.getText().toString().toLowerCase();
+            String memail = email.getText().toString().toLowerCase();
+            String mpassword1 = password1.getText().toString();
+            String mpassword2 = password2.getText().toString();
 
-                if(error == false){
-                    if(mpassword1.equals(mpassword2) && !mlogin.isEmpty() && !mnombre.isEmpty() && !mapellidos.isEmpty() && !memail.isEmpty() && !mpassword1.isEmpty() && !mpassword2.isEmpty()){
+            //si el mail esta bien es true
+            boolean errorEmail = validarEmail(memail);
 
-                        usuario.setLogin(mlogin);
+            if (errorEmail){
+                if (mpassword1.equals(mpassword2)){
+                    boolean error = existeUsuario(memail);
+                    if(!error){
                         usuario.setNombre(mnombre);
                         usuario.setApellidos(mapellidos);
                         usuario.setEmail(memail);
                         usuario.setPassword(mpassword1);
 
-                        dataManager.insert(usuario);
-                        intentacanciones.putExtra("Login",mlogin);
-                        intentacanciones.putExtra("Password",mpassword1);
-                        startActivity(intentacanciones);
+                        new UsuarioPost(usuario);
+                        intentalogin.putExtra("Login",memail);
+                        intentalogin.putExtra("Password",mpassword1);
+                        startActivity(intentalogin);
                         Toast.makeText(RegisterActivity.this, R.string.registradocorrectamente, Toast.LENGTH_SHORT).show();
+                    }else{
+                        Toast.makeText(RegisterActivity.this, R.string.usuarioYaRegistrado, Toast.LENGTH_SHORT).show();
                     }
                 }else{
-                    Toast.makeText(RegisterActivity.this, R.string.usuarioYaRegistrado, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterActivity.this, R.string.errorContraseñas, Toast.LENGTH_SHORT).show();
                 }
+            }else{
+                Toast.makeText(RegisterActivity.this, R.string.errorFormatoEmail, Toast.LENGTH_SHORT).show();
             }
         });
 
-        botonSalir.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                startActivity(intentacanciones);
-            }
-        });
+        botonSalir.setOnClickListener(view -> startActivity(intentalogin));
 
     }
-    private boolean existeUsuario(String login) {
+    private boolean existeUsuario(String email) {
 
-            DataManager dataManager = new DataManager(this);
+        UsuariosFacade  usuariosFacade = new UsuariosFacade();
+        Thread thread = new Thread(usuariosFacade);
+        try {
+            thread.start();
+            thread.join(); // Awaiting response from the server...
+        } catch (InterruptedException e) {
+            // Nothing to do here...
+        }
 
-            Boolean existe = false;//no existe de base
+        boolean existe = false;//no existe de base
 
-            List<Usuario> personas = dataManager.selectAllUsers();
+        List<Usuario> personas = usuariosFacade.getResponse();
 
-            for(int i = 0; i<personas.size();i++){
-                if(personas.get(i).getLogin().equalsIgnoreCase(login) ){
-                    existe = true;
-                    break;
-                }else{
-                    existe=false;
-                }
+        for(int i = 0; i < personas.size();i++){
+            if(personas.get(i).getEmail().equalsIgnoreCase(email) ){
+                existe = true;
+                break;
             }
+        }
+        return existe;
+    }
 
-            return existe;
 
+    private boolean validarEmail(String email) {
+        Pattern pattern = Patterns.EMAIL_ADDRESS;
+        return pattern.matcher(email).matches();
     }
 
 }

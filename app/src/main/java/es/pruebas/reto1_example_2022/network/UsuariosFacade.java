@@ -1,27 +1,26 @@
 package es.pruebas.reto1_example_2022.network;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
-
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 
-import es.pruebas.reto1_example_2022.beans.Cancion;
+import es.pruebas.reto1_example_2022.beans.Usuario;
 
 /**
- * One class per endpoint. This one is for a single Video
+ * One class per endpoint. This one is for a list of Videos
  */
-public class CancionFacade extends NetConfiguration implements Runnable {
+public class UsuariosFacade extends NetConfiguration implements Runnable {
 
-    private final String theUrl = theBaseUrl + "getVideo";
+    private final String theUrl = theBaseUrl + "/usuarios";
 
-    private final int id;
-    private Cancion response;
+    private ArrayList<Usuario> response;
 
-    public CancionFacade(int id) {
+    public UsuariosFacade() {
         super();
-        this.id = id;
     }
 
     @Override
@@ -29,10 +28,9 @@ public class CancionFacade extends NetConfiguration implements Runnable {
 
         try {
             // The URL
-            URL url = new URL( theUrl + "\\1");
+            URL url = new URL( theUrl);
             HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
             httpURLConnection.setRequestMethod( "GET" );
-            httpURLConnection.setRequestProperty("Content-Type", "text/plain; charset=utf-8");
 
             // Sending...
             int responseCode = httpURLConnection.getResponseCode();
@@ -56,12 +54,22 @@ public class CancionFacade extends NetConfiguration implements Runnable {
                 // Processing the JSON...
                 String theUnprocessedJSON = response.toString();
 
-                JSONObject mainObject = new JSONObject(theUnprocessedJSON);
+                JSONArray mainArray = new JSONArray (theUnprocessedJSON);
 
-                this.response = new Cancion();
-                this.response.setId((long) mainObject.getInt("id"));
-                this.response.setTitulo( mainObject.getString("title"));
-                this.response.setUrl( mainObject.getString("url"));
+                this.response = new ArrayList<>();
+
+                Usuario usuario;
+                for(int i=0; i < mainArray.length(); i++) {
+                    JSONObject object = mainArray.getJSONObject( i );
+
+                    usuario = new Usuario();
+                    usuario.setId((long) object.getInt("id"));
+                    usuario.setNombre( object.getString("nombre"));
+                    usuario.setApellidos( object.getString("apellidos"));
+                    usuario.setEmail( object.getString("email"));
+                    usuario.setPassword( object.getString("password"));
+                    this.response.add( usuario );
+                }
             }
 
         } catch (Exception e) {
@@ -69,7 +77,7 @@ public class CancionFacade extends NetConfiguration implements Runnable {
         }
     }
 
-    public Cancion getResponse() {
+    public ArrayList<Usuario> getResponse() {
         return response;
     }
 }

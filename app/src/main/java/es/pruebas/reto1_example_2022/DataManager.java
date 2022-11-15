@@ -1,3 +1,4 @@
+/*
 package es.pruebas.reto1_example_2022;
 
 import android.content.ContentValues;
@@ -5,7 +6,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,13 +36,9 @@ public class DataManager extends SQLiteOpenHelper {
             PASSWORD + " TEXT NOT NULL " +
             ");";
 
-    private final Context context;
+    public DataManager() {
+        super( DB_NAME, DB_VERSION);
 
-    public List<Usuario> ret = new ArrayList<>();
-
-    public DataManager(Context context) {
-        super(context, DB_NAME, null, DB_VERSION);
-        this.context = context;
     }
 
     @Override
@@ -57,7 +53,7 @@ public class DataManager extends SQLiteOpenHelper {
     }
 
     /* Select All */
-
+/*
     public List<Usuario> selectAllUsers () {
         List<Usuario> ret = new ArrayList<>();
         String query = "SELECT * FROM " + TABLE_NAME;
@@ -66,7 +62,6 @@ public class DataManager extends SQLiteOpenHelper {
         Usuario user;
         while (cursor.moveToNext()) {
             user = new Usuario();
-            user.setLogin(cursor.getString(0));
             //user.setId(cursor.getInt(1));
             user.setNombre(cursor.getString(1));
             user.setApellidos(cursor.getString(2));
@@ -82,7 +77,7 @@ public class DataManager extends SQLiteOpenHelper {
     }
 
     /* Select by Id */
-
+/*
     public Usuario selectById (int id) {
         String query = "Select * FROM " + TABLE_NAME + " WHERE " + ID +
                 " = " + "'" + id + "'";
@@ -106,35 +101,23 @@ public class DataManager extends SQLiteOpenHelper {
     }
 
     /* Insertar */
+/*
+    public void insert (Usuario user) {
 
-    public boolean insert (Usuario user) {
-        boolean existe = false;
+        ContentValues values = new ContentValues();
+        values.put(NOMBRE, user.getNombre());
+        values.put(APELLIDOS, user.getApellidos());
+        values.put(EMAIL, user.getEmail());
+        values.put(PASSWORD, user.getPassword());
 
-       // Toast.makeText(context, "ANTES DEL IF", Toast.LENGTH_LONG).show();
+        SQLiteDatabase sQLiteDatabase = this.getWritableDatabase();
+        sQLiteDatabase.insert(TABLE_NAME, null, values);
+        sQLiteDatabase.close();
 
-        if(buscar(user.getLogin())==0){
-
-//            Toast.makeText(context, "DESPUES DE EL IF", Toast.LENGTH_LONG).show();
-
-            ContentValues values = new ContentValues();
-            values.put(LOGIN, user.getLogin());
-            values.put(NOMBRE, user.getNombre());
-            values.put(APELLIDOS, user.getApellidos());
-            values.put(EMAIL, user.getEmail());
-            values.put(PASSWORD, user.getPassword());
-
-            SQLiteDatabase sQLiteDatabase = this.getWritableDatabase();
-            sQLiteDatabase.insert(TABLE_NAME, null, values);
-            sQLiteDatabase.close();
-
-        } else {
-            return existe =true;
-        }
-        return existe;
     }
 
     /* Actualizar */
-
+/*
     public boolean update (Usuario user) {
         SQLiteDatabase sQLiteDatabase = this.getWritableDatabase();
         ContentValues args = new ContentValues();
@@ -148,7 +131,7 @@ public class DataManager extends SQLiteOpenHelper {
     }
 
     /* Borrar */
-
+/*
     public int deleteById (int id) {
         int ret;
         SQLiteDatabase sQLiteDatabase = this.getWritableDatabase();
@@ -163,7 +146,7 @@ public class DataManager extends SQLiteOpenHelper {
     }
 
     /* ifExist / ifEmpty */
-
+/*
     public boolean ifTableExists() {
         boolean ret = false;
         Cursor cursor = null;
@@ -190,17 +173,4 @@ public class DataManager extends SQLiteOpenHelper {
         return ret;
     }
 
-    //Buscar usuario
-
-    public int buscar(String u){
-        int x=0;
-        ret = selectAllUsers();
-        for (Usuario us:ret) {
-            if(us.getLogin().equalsIgnoreCase(u)){
-                x++;
-            }
-        }
-        return x;
-    }
-
-}
+*/

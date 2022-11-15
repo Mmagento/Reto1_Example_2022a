@@ -17,7 +17,6 @@ import java.util.ArrayList;
 import es.pruebas.reto1_example_2022.R;
 import es.pruebas.reto1_example_2022.adapters.MyTableAdapter;
 import es.pruebas.reto1_example_2022.beans.Cancion;
-import es.pruebas.reto1_example_2022.network.CancionFacade;
 import es.pruebas.reto1_example_2022.network.CancionesFacade;
 
 public class GestorConexiones extends AppCompatActivity {
@@ -30,49 +29,49 @@ public class GestorConexiones extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
 
-    ArrayList<Cancion> listado = new ArrayList<>();
-    ArrayAdapter<String> adapter;
+        ArrayList<Cancion> listado = new ArrayList<>();
+        ArrayAdapter<String> adapter;
 
-    MyTableAdapter myTableAdapter = new MyTableAdapter (this, R.layout.myrow_layout, listado);
+        MyTableAdapter myTableAdapter = new MyTableAdapter (this, R.layout.myrow_layout, listado);
+/*
+        findViewById(R.id.botonIniciarLogin ).setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (isConnected()) {
+                    CancionFacade cancionFacade = new CancionFacade();
+                    Thread thread = new Thread(cancionFacade);
+                    try {
+                        thread.start();
+                        thread.join(); // Awaiting response from the server...
+                    } catch (InterruptedException e) {
+                        // Nothing to do here...
+                    }
 
-    findViewById(R.id.botonIniciarLogin ).setOnClickListener( new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
+                    // Processing the answer
+                    Cancion user = cancionFacade.getResponse();
+                    listado.add( user );
+                }
+            }
+        } );*/
+
+        findViewById(R.id.botonIniciarLogin ).setOnClickListener( v -> {
             if (isConnected()) {
-                CancionFacade cancionFacade = new CancionFacade( 1 );
-                Thread thread = new Thread(cancionFacade);
+                CancionesFacade cancionesFacade = new CancionesFacade();
+                Thread thread = new Thread(cancionesFacade);
                 try {
                     thread.start();
                     thread.join(); // Awaiting response from the server...
                 } catch (InterruptedException e) {
                     // Nothing to do here...
                 }
-
                 // Processing the answer
-                Cancion user = cancionFacade.getResponse();
-                listado.add( user );
+                ArrayList<Cancion> listVideos = cancionesFacade.getResponse();
+                listado.addAll( listVideos );
             }
-        }
-    } );
-
-    findViewById(R.id.botonIniciarLogin ).setOnClickListener( v -> {
-        if (isConnected()) {
-            CancionesFacade cancionesFacade = new CancionesFacade();
-            Thread thread = new Thread(cancionesFacade);
-            try {
-                thread.start();
-                thread.join(); // Awaiting response from the server...
-            } catch (InterruptedException e) {
-                // Nothing to do here...
-            }
-            // Processing the answer
-            ArrayList<Cancion> listVideos = cancionesFacade.getResponse();
-            listado.addAll( listVideos );
-        }
-    });
+        });
 
 
-}
+    }
 
     /**
      * Returns true if we are conected to the network. False otherwise

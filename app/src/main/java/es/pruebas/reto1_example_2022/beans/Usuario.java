@@ -6,8 +6,7 @@ public class Usuario implements Serializable {
 
     private static final long serialVersionUID = 5428782614293183346L;
 
-    private int id;
-    private String Login;
+    private long id;
     private String nombre;
     private String apellidos;
     private String email;
@@ -15,17 +14,13 @@ public class Usuario implements Serializable {
 
     public Usuario(){}
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
-
-    public String getLogin() {return Login;}
-
-    public void setLogin(String login) { this.Login = login; }
 
     public String getNombre() {
         return nombre;

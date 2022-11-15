@@ -16,7 +16,7 @@ import es.pruebas.reto1_example_2022.beans.Cancion;
  */
 public class CancionesFacade extends NetConfiguration implements Runnable {
 
-    private final String theUrl = theBaseUrl + "getAllVideos";
+    private final String theUrl = theBaseUrl + "/canciones";
 
     private ArrayList<Cancion> response;
 
@@ -57,16 +57,16 @@ public class CancionesFacade extends NetConfiguration implements Runnable {
 
                 JSONArray mainArray = new JSONArray (theUnprocessedJSON);
 
-                this.response = new ArrayList<Cancion>();
+                this.response = new ArrayList<>();
 
                 Cancion cancion;
                 for(int i=0; i < mainArray.length(); i++) {
                     JSONObject object = mainArray.getJSONObject( i );
 
-                    cancion= new Cancion();
+                    cancion = new Cancion();
                     cancion.setId((long) object.getInt("id"));
-                    cancion.setTitulo( object.getString("title"));
-                    cancion.setUrl( object.getString("url"));
+                    cancion.setTitulo( object.getString("titulo"));
+                    cancion.setAutor( object.getString("autor"));
                     this.response.add( cancion );
                 }
             }

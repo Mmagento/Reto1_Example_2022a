@@ -39,8 +39,9 @@ public class MyTableAdapter extends ArrayAdapter<Cancion> {
         View view = layoutInflater.inflate ( R.layout.myrow_layout, null);
 
         ((TextView) view.findViewById( R.id.userIdTextView)).setText(listadoCancion.get(position).getId() + "");
-        ((TextView) view.findViewById( R.id.userNameTextView)).setText(listadoCancion.get(position).getTitulo());
-        ((TextView) view.findViewById( R.id.locationTextView)).setText(listadoCancion.get(position).getUrl());
+        ((TextView) view.findViewById( R.id.autorTextView)).setText(listadoCancion.get(position).getAutor());
+        ((TextView) view.findViewById( R.id.titulotextView)).setText(listadoCancion.get(position).getTitulo());
+        //((TextView) view.findViewById( R.id.urlTextView)).setText(listadoCancion.get(position).getUrl());
 
         return view;
     }

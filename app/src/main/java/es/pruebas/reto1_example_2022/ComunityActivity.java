@@ -1,10 +1,11 @@
 package es.pruebas.reto1_example_2022;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -14,7 +15,6 @@ import java.util.ArrayList;
 
 import es.pruebas.reto1_example_2022.adapters.MyTableAdapter;
 import es.pruebas.reto1_example_2022.beans.Cancion;
-import es.pruebas.reto1_example_2022.network.CancionFacade;
 import es.pruebas.reto1_example_2022.network.CancionesFacade;
 
 public class ComunityActivity extends AppCompatActivity {
@@ -25,46 +25,32 @@ public class ComunityActivity extends AppCompatActivity {
 
         ArrayList<Cancion> listado = new ArrayList<>();
 
+        Button volver = findViewById(R.id.buttonVolverLogin);
+
         MyTableAdapter myTableAdapter = new MyTableAdapter (this, R.layout.myrow_layout, listado);
         ((ListView) findViewById( R.id.listView)).setAdapter (myTableAdapter);
 
-        findViewById(R.id.getOneButton).setOnClickListener( new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (isConnected()) {
-                    CancionFacade cancionFacade = new CancionFacade( 1 );
-                    Thread thread = new Thread(cancionFacade);
-                    try {
-                        thread.start();
-                        thread.join(); // Awaiting response from the server...
-                    } catch (InterruptedException e) {
-                        // Nothing to do here...
-                    }
-
-                    // Processing the answer
-                    Cancion cancion = cancionFacade.getResponse();
-                    listado.add( cancion );
-                    ((ListView) ComunityActivity.this.findViewById( R.id.listView )).setAdapter( myTableAdapter );
-                }
+        if (isConnected()) {
+            CancionesFacade cancionesFacade = new CancionesFacade();
+            Thread thread = new Thread(cancionesFacade);
+            try {
+                thread.start();
+                thread.join(); // Awaiting response from the server...
+            } catch (InterruptedException e) {
+                // Nothing to do here...
             }
-        } );
+            // Processing the answer
+            ArrayList<Cancion> listCanciones = cancionesFacade.getResponse();
+            listado.addAll( listCanciones );
+            ((ListView) findViewById( R.id.listView)).setAdapter (myTableAdapter);
+        }
 
+        volver.setOnClickListener(view -> {
 
-        findViewById(R.id.getAllButton ).setOnClickListener( v -> {
-            if (isConnected()) {
-                CancionesFacade cancionesFacade = new CancionesFacade();
-                Thread thread = new Thread(cancionesFacade);
-                try {
-                    thread.start();
-                    thread.join(); // Awaiting response from the server...
-                } catch (InterruptedException e) {
-                    // Nothing to do here...
-                }
-                // Processing the answer
-                ArrayList<Cancion> listCanciones = cancionesFacade.getResponse();
-                listado.addAll( listCanciones );
-                ((ListView) findViewById( R.id.listView)).setAdapter (myTableAdapter);
-            }
+            Intent intentLogin = new Intent(ComunityActivity.this,MainActivity.class);
+            startActivity(intentLogin);
+            finish();
+
         });
     }
 

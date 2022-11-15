@@ -14,6 +14,7 @@ import android.widget.Toast;
 import java.util.List;
 
 import es.pruebas.reto1_example_2022.beans.Usuario;
+import es.pruebas.reto1_example_2022.network.UsuariosFacade;
 
 /**
  * Main Activity
@@ -36,8 +37,6 @@ public class MainActivity extends AppCompatActivity {
         recordarUsuario = findViewById(R.id.recordarSesion);
         iniciarSesion = findViewById(R.id.botonIniciarLogin);
         registro = findViewById(R.id.botonRegistroLogin);
-        //EditText userField = findViewById(R.id.textUserLogin);
-        //EditText passwordField= findViewById(R.id.textPasswordLogin);
 
         //---DATOS RECOGIDOS DE EL INTENT DE RegisterActivity---
         Bundle extras = getIntent().getExtras();
@@ -52,16 +51,14 @@ public class MainActivity extends AppCompatActivity {
         iniciarSesion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 boolean login = inicioSesion();
                 if(login){
+                    Toast.makeText(getApplicationContext(),"HOLAA",Toast.LENGTH_SHORT);
                     Intent intentComunity = new Intent(MainActivity.this, ComunityActivity.class);
                     startActivity(intentComunity);
                 }else{
-
                     Toast.makeText(getApplicationContext(), R.string.errorInicioSesion , Toast.LENGTH_SHORT).show();
                 }
-
             }
         });
 
@@ -70,7 +67,6 @@ public class MainActivity extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton compoundButton, boolean checked) {
 
             }
-
         });
 
         registro.setOnClickListener(new View.OnClickListener() {
@@ -84,16 +80,23 @@ public class MainActivity extends AppCompatActivity {
 
     private Boolean inicioSesion(){
 
-        DataManager data = new DataManager(this);
+        UsuariosFacade usuariosFacade = new UsuariosFacade();
+        Thread thread = new Thread(usuariosFacade);
+        try {
+            thread.start();
+            thread.join(); // Awaiting response from the server...
+        } catch (InterruptedException e) {
+            // Nothing to do here...
+        }
 
-        String usuarioString = editUser.getText().toString().toLowerCase();
+        String usuarioString = editUser.getText().toString();
         String password = editPassword.getText().toString();
-        Boolean existe=false;
+        Boolean existe = false;
 
-        List<Usuario> personas = data.selectAllUsers();
+        List<Usuario> personas = usuariosFacade.getResponse();
 
         for(int i = 0; i < personas.size();i++){
-            if(personas.get(i).getLogin().equalsIgnoreCase(usuarioString)){
+            if(personas.get(i).getEmail().equalsIgnoreCase(usuarioString)){
                 if (personas.get(i).getPassword().equals(password)){
                     existe = true;
                     break;
