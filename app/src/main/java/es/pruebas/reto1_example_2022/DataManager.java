@@ -1,4 +1,4 @@
-/*
+
 package es.pruebas.reto1_example_2022;
 
 import android.content.ContentValues;
@@ -20,25 +20,20 @@ public class DataManager extends SQLiteOpenHelper {
 
     public static final String TABLE_NAME = "usuarios";
 
-    private static final String LOGIN = "login";
-    private static final String ID = "id";
-    private static final String NOMBRE = "nombre";
-    private static final String APELLIDOS = "apellidos";
+
     private static final String EMAIL = "email";
     private static final String PASSWORD = "password";
 
     private static final String CREATE_TABLE = "create table " + TABLE_NAME + "(" +
-            LOGIN + " TEXT NOT NULL, " +
-            ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-            NOMBRE + " TEXT NOT NULL, " +
-            APELLIDOS + " TEXT NOT NULL, " +
             EMAIL + " TEXT NOT NULL ," +
             PASSWORD + " TEXT NOT NULL " +
             ");";
 
-    public DataManager() {
-        super( DB_NAME, DB_VERSION);
+    private final Context context;
 
+    public DataManager(Context context) {
+        super(context,DB_NAME,null, DB_VERSION);
+        this.context = context;
     }
 
     @Override
@@ -53,7 +48,7 @@ public class DataManager extends SQLiteOpenHelper {
     }
 
     /* Select All */
-/*
+
     public List<Usuario> selectAllUsers () {
         List<Usuario> ret = new ArrayList<>();
         String query = "SELECT * FROM " + TABLE_NAME;
@@ -62,13 +57,8 @@ public class DataManager extends SQLiteOpenHelper {
         Usuario user;
         while (cursor.moveToNext()) {
             user = new Usuario();
-            //user.setId(cursor.getInt(1));
-            user.setNombre(cursor.getString(1));
-            user.setApellidos(cursor.getString(2));
-            user.setEmail(cursor.getString(3));
-            user.setPassword(cursor.getString(4));
-
-
+            user.setEmail(cursor.getString(0));
+            user.setPassword(cursor.getString(1));
             ret.add(user);
         }
         cursor.close();
@@ -77,36 +67,31 @@ public class DataManager extends SQLiteOpenHelper {
     }
 
     /* Select by Id */
-/*
-    public Usuario selectById (int id) {
-        String query = "Select * FROM " + TABLE_NAME + " WHERE " + ID +
-                " = " + "'" + id + "'";
-        SQLiteDatabase sQLiteDatabase = this.getWritableDatabase();
-        Cursor cursor = sQLiteDatabase.rawQuery(query, null);
 
-        Usuario user = new Usuario ();
-        if (cursor.moveToFirst()) {
-            cursor.moveToFirst();
-            user.setId(cursor.getInt(0));
-            user.setNombre(cursor.getString(1));
-            user.setApellidos(cursor.getString(2));
-            user.setEmail(cursor.getString(3));
-            user.setPassword(cursor.getString(4));
-            cursor.close();
-        } else {
-            user = null;
-        }
-        sQLiteDatabase.close();
-        return user;
-    }
+//    public Usuario selectById (int id) {
+//        String query = "Select * FROM " + TABLE_NAME + " WHERE " + ID +
+//                " = " + "'" + id + "'";
+//        SQLiteDatabase sQLiteDatabase = this.getWritableDatabase();
+//        Cursor cursor = sQLiteDatabase.rawQuery(query, null);
+//
+//        Usuario user = new Usuario ();
+//        if (cursor.moveToFirst()) {
+//            cursor.moveToFirst();
+//            user.setEmail(cursor.getString(3));
+//            user.setPassword(cursor.getString(4));
+//            cursor.close();
+//        } else {
+//            user = null;
+//        }
+//        sQLiteDatabase.close();
+//        return user;
+//    }
 
     /* Insertar */
-/*
+
     public void insert (Usuario user) {
 
         ContentValues values = new ContentValues();
-        values.put(NOMBRE, user.getNombre());
-        values.put(APELLIDOS, user.getApellidos());
         values.put(EMAIL, user.getEmail());
         values.put(PASSWORD, user.getPassword());
 
@@ -117,36 +102,29 @@ public class DataManager extends SQLiteOpenHelper {
     }
 
     /* Actualizar */
-/*
+
     public boolean update (Usuario user) {
         SQLiteDatabase sQLiteDatabase = this.getWritableDatabase();
         ContentValues args = new ContentValues();
-        args.put(ID, user.getId());
-        args.put(NOMBRE, user.getNombre());
-        args.put(APELLIDOS, user.getApellidos());
         args.put(EMAIL, user.getEmail());
         args.put(PASSWORD, user.getPassword());
-        String whereClause = ID + "=" + user.getId();
+        String whereClause = EMAIL + "=" + user.getId();
         return sQLiteDatabase.update(TABLE_NAME, args, whereClause, null) > 0;
     }
 
     /* Borrar */
-/*
-    public int deleteById (int id) {
-        int ret;
+
+    public void deleteByEmail (String email) {
+
         SQLiteDatabase sQLiteDatabase = this.getWritableDatabase();
-        Usuario user = new Usuario ();
-        user.setId(id);
-        ret = sQLiteDatabase.delete(TABLE_NAME, ID + "=?",
-                new String[] {
-                        String.valueOf(user.getId())
-                });
+
+         sQLiteDatabase.delete(TABLE_NAME, EMAIL + "=?",
+                 new String[]{email});
         sQLiteDatabase.close();
-        return ret;
     }
 
     /* ifExist / ifEmpty */
-/*
+
     public boolean ifTableExists() {
         boolean ret = false;
         Cursor cursor = null;
@@ -172,5 +150,5 @@ public class DataManager extends SQLiteOpenHelper {
         }
         return ret;
     }
+}
 
-*/

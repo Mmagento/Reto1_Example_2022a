@@ -25,7 +25,6 @@ import es.pruebas.reto1_example_2022.network.UsuariosFacade;
 
 public class RegisterActivity extends AppCompatActivity {
 
-
     public EditText nombre;
     public EditText apellidos;
     public EditText email;
@@ -38,7 +37,6 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-
 
         nombre = findViewById(R.id.textNombre);
         apellidos = findViewById(R.id.textApellidos);
@@ -53,7 +51,6 @@ public class RegisterActivity extends AppCompatActivity {
         Usuario usuario = new Usuario();
 
         botonRegistro.setOnClickListener(view -> {
-
 
             String mnombre = nombre.getText().toString().toLowerCase();
             String mapellidos = apellidos.getText().toString().toLowerCase();
@@ -74,7 +71,6 @@ public class RegisterActivity extends AppCompatActivity {
                         usuario.setPassword(mpassword1);
 
                         int registrado = registrarUsuario(usuario);
-                        System.out.println("BRRRRRRRRRRRRRRRRRRRR"+registrado);
                         if(registrado==1){
                             intentalogin.putExtra("Login",memail);
                             intentalogin.putExtra("Password",mpassword1);

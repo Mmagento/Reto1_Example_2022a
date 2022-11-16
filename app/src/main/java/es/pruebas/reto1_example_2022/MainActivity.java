@@ -4,13 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import java.util.List;
 
 import es.pruebas.reto1_example_2022.beans.Usuario;
@@ -32,11 +29,16 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
+
+        DataManager dataManager = new DataManager(this);
+
         editUser = findViewById(R.id.textUserLogin);
         editPassword = findViewById(R.id.textPasswordLogin);
         recordarUsuario = findViewById(R.id.recordarSesion);
         iniciarSesion = findViewById(R.id.botonIniciarLogin);
         registro = findViewById(R.id.botonRegistroLogin);
+
+        recuerdameSetIntoText();
 
         //---DATOS RECOGIDOS DE EL INTENT DE RegisterActivity---
         Bundle extras = getIntent().getExtras();
@@ -48,33 +50,37 @@ public class MainActivity extends AppCompatActivity {
             editPassword.setText(password);
         }
 
-        iniciarSesion.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                boolean login = inicioSesion();
-                if(login){
-                    Toast.makeText(getApplicationContext(),"HOLAA",Toast.LENGTH_SHORT);
-                    Intent intentComunity = new Intent(MainActivity.this, ComunityActivity.class);
-                    startActivity(intentComunity);
-                }else{
-                    Toast.makeText(getApplicationContext(), R.string.errorInicioSesion , Toast.LENGTH_SHORT).show();
+        iniciarSesion.setOnClickListener(view -> {
+            boolean login = inicioSesion();
+            if(login){
+                if(!recordarUsuario.isChecked()){
+                    deleteAllFromDB();
                 }
+
+                Intent intentComunity = new Intent(MainActivity.this, ComunityActivity.class);
+                startActivity(intentComunity);
+            }else{
+                Toast.makeText(getApplicationContext(), R.string.errorInicioSesion , Toast.LENGTH_SHORT).show();
             }
         });
 
-        recordarUsuario.setOnCheckedChangeListener(new CheckBox.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean checked) {
+        recordarUsuario.setOnCheckedChangeListener((compoundButton, checked) -> {
+            Usuario usuario = new Usuario();
+            usuario.setEmail(editUser.getText().toString());
+            usuario.setPassword(editPassword.getText().toString());
+            deleteAllFromDB();
+            if(recordarUsuario.isChecked()){
+                deleteAllFromDB();
+                dataManager.insert(usuario);
 
+            }else if(!recordarUsuario.isChecked()){
+                deleteAllFromDB();
             }
         });
 
-        registro.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intentRegister = new Intent(MainActivity.this, RegisterActivity.class);
-                startActivity(intentRegister); }
-        });
+        registro.setOnClickListener(view -> {
+            Intent intentRegister = new Intent(MainActivity.this, RegisterActivity.class);
+            startActivity(intentRegister); });
 
     }
 
@@ -91,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
 
         String usuarioString = editUser.getText().toString();
         String password = editPassword.getText().toString();
-        Boolean existe = false;
+        boolean existe = false;
 
         List<Usuario> personas = usuariosFacade.getResponse();
 
@@ -100,14 +106,36 @@ public class MainActivity extends AppCompatActivity {
                 if (personas.get(i).getPassword().equals(password)){
                     existe = true;
                     break;
-                }else {
-                    existe = false;
                 }
-            }else{
-                existe = false;
             }
         }
         return existe;
+    }
+
+
+    public void recuerdameSetIntoText(){
+        DataManager dataManager = new DataManager(this);
+
+        List<Usuario> user =  dataManager.selectAllUsers();
+        System.out.println("SIZEEE"+user.size());
+        if(user.size()!=0){
+
+            System.out.println("EMAIL"+user.get(0).getEmail());
+            System.out.println("EMAIL"+user.get(0).getPassword());
+            editUser.setText(user.get(0).getEmail());
+            editPassword.setText(user.get(0).getPassword());
+        }
+    }
+
+    public void deleteAllFromDB(){
+        DataManager dataManager = new DataManager(this);
+        List<Usuario>usuariosListBorrar = dataManager.selectAllUsers();
+
+        if (usuariosListBorrar.size()!=0){
+            for(int i = 0; i < usuariosListBorrar.size() ; i++){
+                dataManager.deleteByEmail(usuariosListBorrar.get(i).getEmail());
+            }
+        }
     }
 
 }
