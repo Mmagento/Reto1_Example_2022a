@@ -50,6 +50,18 @@ public class MainActivity extends AppCompatActivity {
 
         iniciarSesion.setOnClickListener(view -> {
             boolean login = inicioSesion();
+            Usuario usuario = new Usuario();
+            usuario.setEmail(editUser.getText().toString());
+            usuario.setPassword(editPassword.getText().toString());
+            deleteAllFromDB();
+            if(recordarUsuario.isChecked()){
+                deleteAllFromDB();
+                dataManager.insert(usuario);
+
+            }else if(!recordarUsuario.isChecked()){
+                deleteAllFromDB();
+            }
+
             if(login){
                 if(!recordarUsuario.isChecked()){
                     deleteAllFromDB();
