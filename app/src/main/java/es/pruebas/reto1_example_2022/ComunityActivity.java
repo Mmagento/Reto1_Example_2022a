@@ -5,14 +5,13 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import java.util.ArrayList;
-
 import es.pruebas.reto1_example_2022.adapters.MyTableAdapter;
 import es.pruebas.reto1_example_2022.beans.Cancion;
 import es.pruebas.reto1_example_2022.network.CancionesFacade;
@@ -27,8 +26,9 @@ public class ComunityActivity extends AppCompatActivity {
 
         Button volver = findViewById(R.id.buttonVolverLogin);
 
+        ListView listCanciones =((ListView) findViewById( R.id.listView));
         MyTableAdapter myTableAdapter = new MyTableAdapter (this, R.layout.myrow_layout, listado);
-        ((ListView) findViewById( R.id.listView)).setAdapter (myTableAdapter);
+        listCanciones.setAdapter (myTableAdapter);
 
         if (isConnected()) {
             CancionesFacade cancionesFacade = new CancionesFacade();
@@ -39,11 +39,19 @@ public class ComunityActivity extends AppCompatActivity {
             } catch (InterruptedException e) {
                 // Nothing to do here...
             }
-            // Processing the answer
-            ArrayList<Cancion> listCanciones = cancionesFacade.getResponse();
-            listado.addAll( listCanciones );
-            ((ListView) findViewById( R.id.listView)).setAdapter (myTableAdapter);
+            listado.addAll( cancionesFacade.getResponse() );
         }
+
+        listCanciones.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+
+                //position es el que te da el tiem seleccionado
+                Toast.makeText(getApplicationContext(), "ITASS" , Toast.LENGTH_SHORT).show();
+
+
+            }
+        });
 
         volver.setOnClickListener(view -> {
 
