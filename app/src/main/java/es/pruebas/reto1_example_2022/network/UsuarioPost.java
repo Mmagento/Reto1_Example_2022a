@@ -2,6 +2,7 @@ package es.pruebas.reto1_example_2022.network;
 
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
@@ -39,21 +40,33 @@ public class UsuarioPost extends NetConfiguration implements Runnable {
             try(OutputStream postSend = httpURLConnection.getOutputStream()) {
                 byte[] input = jsonInputString.getBytes(StandardCharsets.UTF_8);
                 postSend.write(input, 0, input.length);
+                System.out.println("PRUEBA PRUEBA PRUEBA"+input.length);
             }
             System.out.println("3");
             //no llega al 4
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(httpURLConnection.getInputStream()));
-            StringBuffer response = new StringBuffer();
-            String inputLine;
-            System.out.println("4");
-            while((inputLine = bufferedReader.readLine()) != null){
 
-                response.append(inputLine);
+            int responseCode = httpURLConnection.getResponseCode();
+            System.out.println(responseCode);
+            if (responseCode == 500){
+                // I am not a teapot...
+                this.responseInt = 0;
+                System.out.println("He entrado en el if de error 500");
+            } else if (responseCode == HttpURLConnection.HTTP_OK) {
+
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(httpURLConnection.getInputStream()));
+                System.out.println("4");
+                StringBuffer response = new StringBuffer();
+                String inputLine;
+
+                while((inputLine = bufferedReader.readLine()) != null){
+
+                    response.append(inputLine);
+
+                }
+                bufferedReader.close();
+                System.out.println("5");
 
             }
-            bufferedReader.close();
-            System.out.println("5");
-
         } catch (Exception e) {
             System.out.println( "ERRORKKKKKKKKKKKKKKKKK: " + e.getMessage() );
         }
