@@ -8,18 +8,11 @@ import android.os.Bundle;
 import android.util.Patterns;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
-
-import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
-
-import es.pruebas.reto1_example_2022.beans.Cancion;
 import es.pruebas.reto1_example_2022.beans.Usuario;
-import es.pruebas.reto1_example_2022.network.CancionesFacade;
 import es.pruebas.reto1_example_2022.network.UsuarioPost;
 import es.pruebas.reto1_example_2022.network.UsuariosFacade;
 
@@ -70,13 +63,13 @@ public class RegisterActivity extends AppCompatActivity {
                         usuario.setEmail(memail);
                         usuario.setPassword(mpassword1);
 
-                        int registrado = registrarUsuario(usuario);
-                        if(registrado==1){
+                         registrarUsuario(usuario);
+
                             intentalogin.putExtra("Login",memail);
                             intentalogin.putExtra("Password",mpassword1);
                             startActivity(intentalogin);
                             Toast.makeText(RegisterActivity.this, R.string.registradocorrectamente, Toast.LENGTH_SHORT).show();
-                        }
+
                     }else{
                         Toast.makeText(RegisterActivity.this, R.string.usuarioYaRegistrado, Toast.LENGTH_SHORT).show();
                     }
@@ -115,16 +108,12 @@ public class RegisterActivity extends AppCompatActivity {
         return existe;
     }
 
-
     private boolean validarEmail(String email) {
         Pattern pattern = Patterns.EMAIL_ADDRESS;
         return pattern.matcher(email).matches();
     }
 
-
-    private int registrarUsuario(Usuario usuario){
-
-        int registrado = 0;
+    private void registrarUsuario(Usuario usuario){
 
         if (isConnected()) {
             UsuarioPost usuarioPost =  new UsuarioPost(usuario);
@@ -135,11 +124,7 @@ public class RegisterActivity extends AppCompatActivity {
             } catch (InterruptedException e) {
                 // Nothing to do here...
             }
-            // Processing the answer
-
-            registrado = usuarioPost.getResponse();
         }
-        return registrado;
     }
 
     public boolean isConnected() {

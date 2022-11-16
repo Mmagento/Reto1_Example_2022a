@@ -28,8 +28,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-
         DataManager dataManager = new DataManager(this);
 
         editUser = findViewById(R.id.textUserLogin);
@@ -56,7 +54,6 @@ public class MainActivity extends AppCompatActivity {
                 if(!recordarUsuario.isChecked()){
                     deleteAllFromDB();
                 }
-
                 Intent intentComunity = new Intent(MainActivity.this, ComunityActivity.class);
                 startActivity(intentComunity);
             }else{
@@ -117,11 +114,8 @@ public class MainActivity extends AppCompatActivity {
         DataManager dataManager = new DataManager(this);
 
         List<Usuario> user =  dataManager.selectAllUsers();
-        System.out.println("SIZEEE"+user.size());
         if(user.size()!=0){
 
-            System.out.println("EMAIL"+user.get(0).getEmail());
-            System.out.println("EMAIL"+user.get(0).getPassword());
             editUser.setText(user.get(0).getEmail());
             editPassword.setText(user.get(0).getPassword());
         }
