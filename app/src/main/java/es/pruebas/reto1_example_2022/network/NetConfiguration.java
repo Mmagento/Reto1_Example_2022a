@@ -1,4 +1,4 @@
-    package es.pruebas.reto1_example_2022.network;
+package es.pruebas.reto1_example_2022.network;
 
 /**
  * Network configuration

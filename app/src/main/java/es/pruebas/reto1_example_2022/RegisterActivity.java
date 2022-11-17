@@ -9,9 +9,12 @@ import android.util.Patterns;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import java.util.List;
 import java.util.regex.Pattern;
+
 import es.pruebas.reto1_example_2022.beans.Usuario;
 import es.pruebas.reto1_example_2022.network.UsuarioPost;
 import es.pruebas.reto1_example_2022.network.UsuariosFacade;
@@ -54,39 +57,40 @@ public class RegisterActivity extends AppCompatActivity {
             //si el mail esta bien es true
             boolean errorEmail = validarEmail(memail);
 
-            if (errorEmail){
-                if (mpassword1.equals(mpassword2)){
+            if (errorEmail) {
+                if (mpassword1.equals(mpassword2)) {
                     boolean error = existeUsuario(memail);
-                    if(!error){
+                    if (!error) {
                         usuario.setNombre(mnombre);
                         usuario.setApellidos(mapellidos);
                         usuario.setEmail(memail);
                         usuario.setPassword(mpassword1);
 
-                         registrarUsuario(usuario);
+                        registrarUsuario(usuario);
 
-                            intentalogin.putExtra("Login",memail);
-                            intentalogin.putExtra("Password",mpassword1);
-                            startActivity(intentalogin);
-                            Toast.makeText(RegisterActivity.this, R.string.registradocorrectamente, Toast.LENGTH_SHORT).show();
+                        intentalogin.putExtra("Login", memail);
+                        intentalogin.putExtra("Password", mpassword1);
+                        startActivity(intentalogin);
+                        Toast.makeText(RegisterActivity.this, R.string.registradocorrectamente, Toast.LENGTH_SHORT).show();
 
-                    }else{
+                    } else {
                         Toast.makeText(RegisterActivity.this, R.string.usuarioYaRegistrado, Toast.LENGTH_SHORT).show();
                     }
-                }else{
-                        Toast.makeText(RegisterActivity.this, R.string.errorContraseñas, Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(RegisterActivity.this, R.string.errorContraseñas, Toast.LENGTH_SHORT).show();
                 }
-            }else{
-                        Toast.makeText(RegisterActivity.this, R.string.errorFormatoEmail, Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(RegisterActivity.this, R.string.errorFormatoEmail, Toast.LENGTH_SHORT).show();
             }
         });
 
         botonSalir.setOnClickListener(view -> startActivity(intentalogin));
 
     }
+
     private boolean existeUsuario(String email) {
 
-        UsuariosFacade  usuariosFacade = new UsuariosFacade();
+        UsuariosFacade usuariosFacade = new UsuariosFacade();
         Thread thread = new Thread(usuariosFacade);
         try {
             thread.start();
@@ -99,8 +103,8 @@ public class RegisterActivity extends AppCompatActivity {
 
         List<Usuario> personas = usuariosFacade.getResponse();
 
-        for(int i = 0; i < personas.size();i++){
-            if(personas.get(i).getEmail().equalsIgnoreCase(email) ){
+        for (int i = 0; i < personas.size(); i++) {
+            if (personas.get(i).getEmail().equalsIgnoreCase(email)) {
                 existe = true;
                 break;
             }
@@ -113,10 +117,10 @@ public class RegisterActivity extends AppCompatActivity {
         return pattern.matcher(email).matches();
     }
 
-    private void registrarUsuario(Usuario usuario){
+    private void registrarUsuario(Usuario usuario) {
 
         if (isConnected()) {
-            UsuarioPost usuarioPost =  new UsuarioPost(usuario);
+            UsuarioPost usuarioPost = new UsuarioPost(usuario);
             Thread thread = new Thread(usuarioPost);
             try {
                 thread.start();
@@ -131,7 +135,7 @@ public class RegisterActivity extends AppCompatActivity {
         boolean ret = false;
         try {
             ConnectivityManager connectivityManager = (ConnectivityManager) getApplicationContext()
-                    .getSystemService( Context.CONNECTIVITY_SERVICE);
+                    .getSystemService(Context.CONNECTIVITY_SERVICE);
             NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
             if ((networkInfo != null) && (networkInfo.isAvailable()) && (networkInfo.isConnected()))
                 ret = true;

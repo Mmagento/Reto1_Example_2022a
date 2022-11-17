@@ -16,12 +16,21 @@ import es.pruebas.reto1_example_2022.network.UsuariosFacade;
 /**
  * Main Activity
  */
+
 public class MainActivity extends AppCompatActivity {
+
+    @Override
+    protected void onResume() {
+
+        super.onResume();
+        recordarUsuario.setActivated(true);
+    }
 
     private EditText editUser;
     private EditText editPassword;
     private CheckBox recordarUsuario;
     Button iniciarSesion, registro;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
             if(recordarUsuario.isChecked()){
                 deleteAllFromDB();
                 dataManager.insert(usuario);
+                recordarUsuario.setActivated(true);
 
             }else if(!recordarUsuario.isChecked()){
                 deleteAllFromDB();
@@ -67,7 +77,11 @@ public class MainActivity extends AppCompatActivity {
                     deleteAllFromDB();
                 }
                 Intent intentComunity = new Intent(MainActivity.this, ComunityActivity.class);
+
+                intentComunity.putExtra("emailUsuario",usuario.getEmail());
                 startActivity(intentComunity);
+                finish();
+                recordarUsuario.setActivated(true);
             }else{
                 Toast.makeText(getApplicationContext(), R.string.errorInicioSesion , Toast.LENGTH_SHORT).show();
             }
@@ -81,6 +95,7 @@ public class MainActivity extends AppCompatActivity {
             if(recordarUsuario.isChecked()){
                 deleteAllFromDB();
                 dataManager.insert(usuario);
+                recordarUsuario.setActivated(true);
 
             }else if(!recordarUsuario.isChecked()){
                 deleteAllFromDB();
@@ -127,9 +142,10 @@ public class MainActivity extends AppCompatActivity {
 
         List<Usuario> user =  dataManager.selectAllUsers();
         if(user.size()!=0){
-
+            recordarUsuario.setActivated(true);
             editUser.setText(user.get(0).getEmail());
             editPassword.setText(user.get(0).getPassword());
+
         }
     }
 

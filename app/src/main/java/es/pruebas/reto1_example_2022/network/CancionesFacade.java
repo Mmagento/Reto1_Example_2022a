@@ -29,51 +29,51 @@ public class CancionesFacade extends NetConfiguration implements Runnable {
 
         try {
             // The URL
-            URL url = new URL( theUrl);
+            URL url = new URL(theUrl);
             HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
-            httpURLConnection.setRequestMethod( "GET" );
+            httpURLConnection.setRequestMethod("GET");
 
             // Sending...
             int responseCode = httpURLConnection.getResponseCode();
 
-            if (responseCode == 418){
+            if (responseCode == 418) {
                 // I am not a teapot...
                 this.response = null;
 
             } else if (responseCode == HttpURLConnection.HTTP_OK) {
                 // Response...
                 BufferedReader bufferedReader = new BufferedReader(
-                        new InputStreamReader( httpURLConnection.getInputStream() ) );
+                        new InputStreamReader(httpURLConnection.getInputStream()));
 
                 StringBuffer response = new StringBuffer();
                 String inputLine;
                 while ((inputLine = bufferedReader.readLine()) != null) {
-                    response.append( inputLine );
+                    response.append(inputLine);
                 }
                 bufferedReader.close();
 
                 // Processing the JSON...
                 String theUnprocessedJSON = response.toString();
 
-                JSONArray mainArray = new JSONArray (theUnprocessedJSON);
+                JSONArray mainArray = new JSONArray(theUnprocessedJSON);
 
                 this.response = new ArrayList<>();
 
                 Cancion cancion;
-                for(int i=0; i < mainArray.length(); i++) {
-                    JSONObject object = mainArray.getJSONObject( i );
+                for (int i = 0; i < mainArray.length(); i++) {
+                    JSONObject object = mainArray.getJSONObject(i);
 
                     cancion = new Cancion();
                     cancion.setId((long) object.getInt("id"));
-                    cancion.setTitulo( object.getString("titulo"));
-                    cancion.setAutor( object.getString("autor"));
-                    cancion.setUrl( object.getString("url"));
-                    this.response.add( cancion );
+                    cancion.setTitulo(object.getString("titulo"));
+                    cancion.setAutor(object.getString("autor"));
+                    cancion.setUrl(object.getString("url"));
+                    this.response.add(cancion);
                 }
             }
 
         } catch (Exception e) {
-            System.out.println( "ERROR: " + e.getMessage() );
+            System.out.println("ERROR: " + e.getMessage());
         }
     }
 

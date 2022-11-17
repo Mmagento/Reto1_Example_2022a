@@ -6,7 +6,6 @@ public class Favorito {
     long IdCancion;
 
 
-
     public long getIdUsuario() {
         return idUsuario;
     }
@@ -25,9 +24,9 @@ public class Favorito {
 
     @Override
     public String toString() {
-        return "Favorito{" +
-                "idUsuario=" + idUsuario +
-                ", IdCancion=" + IdCancion +
-                '}';
+        return "{" +
+                '"' + "idUser" + '"' + ":" + '"' + idUsuario + '"' +
+                "," + '"' + "idSong" + '"' + ":" + '"' + IdCancion + '"' +
+                "}";
     }
 }

@@ -28,19 +28,19 @@ public class UsuarioPost extends NetConfiguration implements Runnable {
 
             URL url = new URL(theUrl);
             HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
-            httpURLConnection.setRequestMethod( "POST" );
-            httpURLConnection.setRequestProperty("Content-type" , "application/json;charset=UTF-8");
+            httpURLConnection.setRequestMethod("POST");
+            httpURLConnection.setRequestProperty("Content-type", "application/json;charset=UTF-8");
             httpURLConnection.setRequestProperty("Accept", "application/json");
             httpURLConnection.setDoOutput(true);
             httpURLConnection.setDoInput(true);
             String jsonInputString = usuario.toString();
-            try(OutputStream postSend = httpURLConnection.getOutputStream()) {
+            try (OutputStream postSend = httpURLConnection.getOutputStream()) {
                 byte[] input = jsonInputString.getBytes(StandardCharsets.UTF_8);
                 postSend.write(input, 0, input.length);
             }
 
             int responseCode = httpURLConnection.getResponseCode();
-            if (responseCode == 500){
+            if (responseCode == 500) {
                 // I am not a teapot...
                 this.responseInt = 0;
             } else if (responseCode == HttpURLConnection.HTTP_OK) {
@@ -49,15 +49,15 @@ public class UsuarioPost extends NetConfiguration implements Runnable {
                 StringBuffer response = new StringBuffer();
                 String inputLine;
 
-                while((inputLine = bufferedReader.readLine()) != null){
+                while ((inputLine = bufferedReader.readLine()) != null) {
                     response.append(inputLine);
                 }
                 bufferedReader.close();
             }
         } catch (Exception e) {
-            System.out.println( "ERROR: " + e.getMessage() );
+            System.out.println("ERROR: " + e.getMessage());
         }
-        }
+    }
 
     public int getResponse() {
         return responseInt;

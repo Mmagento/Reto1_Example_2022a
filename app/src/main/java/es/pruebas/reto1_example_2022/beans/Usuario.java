@@ -12,7 +12,8 @@ public class Usuario implements Serializable {
     private String email;
     private String password;
 
-    public Usuario(){}
+    public Usuario() {
+    }
 
     public long getId() {
         return id;
@@ -57,11 +58,11 @@ public class Usuario implements Serializable {
 
     @Override
     public String toString() {
-      return "{" +
-              '"'+"nombre"+ '"' +":" +'"'+ nombre + '"'+
-              ","+'"'+"apellidos"+ '"' +":" +'"'+ apellidos + '"'+
-              ","+'"'+"email"+ '"' +":" +'"'+ email + '"'+
-              ","+'"'+"password"+ '"' +":" +'"'+ password + '"'+
-              "}";
+        return "{" +
+                '"' + "nombre" + '"' + ":" + '"' + nombre + '"' +
+                "," + '"' + "apellidos" + '"' + ":" + '"' + apellidos + '"' +
+                "," + '"' + "email" + '"' + ":" + '"' + email + '"' +
+                "," + '"' + "password" + '"' + ":" + '"' + password + '"' +
+                "}";
     }
 }

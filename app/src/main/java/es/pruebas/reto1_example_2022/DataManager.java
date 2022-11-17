@@ -32,7 +32,7 @@ public class DataManager extends SQLiteOpenHelper {
     private final Context context;
 
     public DataManager(Context context) {
-        super(context,DB_NAME,null, DB_VERSION);
+        super(context, DB_NAME, null, DB_VERSION);
         this.context = context;
     }
 
@@ -49,7 +49,7 @@ public class DataManager extends SQLiteOpenHelper {
 
     /* Select All */
 
-    public List<Usuario> selectAllUsers () {
+    public List<Usuario> selectAllUsers() {
         List<Usuario> ret = new ArrayList<>();
         String query = "SELECT * FROM " + TABLE_NAME;
         SQLiteDatabase sQLiteDatabase = this.getWritableDatabase();
@@ -89,7 +89,7 @@ public class DataManager extends SQLiteOpenHelper {
 
     /* Insertar */
 
-    public void insert (Usuario user) {
+    public void insert(Usuario user) {
 
         ContentValues values = new ContentValues();
         values.put(EMAIL, user.getEmail());
@@ -103,7 +103,7 @@ public class DataManager extends SQLiteOpenHelper {
 
     /* Actualizar */
 
-    public boolean update (Usuario user) {
+    public boolean update(Usuario user) {
         SQLiteDatabase sQLiteDatabase = this.getWritableDatabase();
         ContentValues args = new ContentValues();
         args.put(EMAIL, user.getEmail());
@@ -114,12 +114,12 @@ public class DataManager extends SQLiteOpenHelper {
 
     /* Borrar */
 
-    public void deleteByEmail (String email) {
+    public void deleteByEmail(String email) {
 
         SQLiteDatabase sQLiteDatabase = this.getWritableDatabase();
 
-         sQLiteDatabase.delete(TABLE_NAME, EMAIL + "=?",
-                 new String[]{email});
+        sQLiteDatabase.delete(TABLE_NAME, EMAIL + "=?",
+                new String[]{email});
         sQLiteDatabase.close();
     }
 
@@ -132,7 +132,7 @@ public class DataManager extends SQLiteOpenHelper {
             SQLiteDatabase sQLiteDatabase = this.getReadableDatabase();
             String query = "select DISTINCT tbl_name from sqlite_master where tbl_name = '" +
                     TABLE_NAME + "'";
-            cursor = sQLiteDatabase.rawQuery( query, null );
+            cursor = sQLiteDatabase.rawQuery(query, null);
             if (cursor != null) {
                 if (cursor.getCount() > 0) {
                     ret = true;
@@ -140,8 +140,8 @@ public class DataManager extends SQLiteOpenHelper {
             }
         } catch (Exception e) {
             // Nothing to do here...
-        } finally{
-            try{
+        } finally {
+            try {
                 assert cursor != null;
                 cursor.close();
             } catch (NullPointerException e) {

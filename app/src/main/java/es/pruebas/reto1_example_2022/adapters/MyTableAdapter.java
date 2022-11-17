@@ -19,30 +19,29 @@ import es.pruebas.reto1_example_2022.beans.Cancion;
  */
 public class MyTableAdapter extends ArrayAdapter<Cancion> {
 
-    private final ArrayList <Cancion> listadoCancion;
+    private final ArrayList<Cancion> listadoCancion;
     private final Context context;
 
     public MyTableAdapter(@NonNull Context context, int resource, @NonNull ArrayList<Cancion> listadoCancion) {
-        super( context, resource, listadoCancion );
+        super(context, resource, listadoCancion);
         this.listadoCancion = listadoCancion;
         this.context = context;
     }
 
     @Override
-    public int getCount (){
+    public int getCount() {
         return super.getCount();
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater layoutInflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view = layoutInflater.inflate ( R.layout.myrow_layout, null);
-
+        View view = layoutInflater.inflate(R.layout.myrow_layout, null);
 
 
         //((TextView) view.findViewById( R.id.userIdTextView)).setText((listadoCancion.get(position).getId()+""));
-        ((TextView) view.findViewById( R.id.autorTextView)).setText(listadoCancion.get(position).getAutor());
-        ((TextView) view.findViewById( R.id.titulotextView)).setText(listadoCancion.get(position).getTitulo());
+        ((TextView) view.findViewById(R.id.autorTextView)).setText(listadoCancion.get(position).getAutor());
+        ((TextView) view.findViewById(R.id.titulotextView)).setText(listadoCancion.get(position).getTitulo());
         //((TextView) view.findViewById( R.id.urlTextView)).setText(listadoCancion.get(position).getUrl());
 
         return view;
