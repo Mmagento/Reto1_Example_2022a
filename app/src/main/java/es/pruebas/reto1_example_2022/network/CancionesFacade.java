@@ -67,6 +67,7 @@ public class CancionesFacade extends NetConfiguration implements Runnable {
                     cancion.setId((long) object.getInt("id"));
                     cancion.setTitulo( object.getString("titulo"));
                     cancion.setAutor( object.getString("autor"));
+                    cancion.setUrl( object.getString("url"));
                     this.response.add( cancion );
                 }
             }

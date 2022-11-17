@@ -33,4 +33,6 @@
     <string name="errorFormatoEmail">El formato de email no es correcto</string>
     <string name="errorContraseñas">Las contraseñas no coinciden</string>
     <string name="nombre_aplicacion">iMusic</string>
+    <string name="añadir_favorito">Añadir a Favoritos</string>
+    <string name="Reproducir_cancion">Reproducir cancion</string>
 </resources>

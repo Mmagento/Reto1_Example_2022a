@@ -8,8 +8,8 @@
 
     <EditText
         android:id="@+id/textUserLogin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="213dp"
+        android:layout_height="56dp"
         android:ems="10"
         android:hint="Usuario"
         android:inputType="textPersonName"
@@ -24,8 +24,8 @@
 
     <CheckBox
         android:id="@+id/recordarSesion"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="149dp"
+        android:layout_height="65dp"
         android:text="@string/recordarSesion"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -36,8 +36,8 @@
 
     <EditText
         android:id="@+id/textPasswordLogin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="211dp"
+        android:layout_height="59dp"
         android:ems="10"
         android:hint="Password"
         android:inputType="textPassword"
@@ -52,32 +52,31 @@
 
     <Button
         android:id="@+id/botonIniciarLogin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="98dp"
+        android:layout_height="57dp"
         android:text="@string/botonIniciarLogin"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.727" />
+        app:layout_constraintVertical_bias="0.719" />
 
     <Button
         android:id="@+id/botonRegistroLogin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="123dp"
+        android:layout_height="58dp"
         android:text="@string/botonRegistroLogin"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.828" />
+        app:layout_constraintVertical_bias="0.836" />
 
     <ImageView
         android:id="@+id/logoApp"
-        android:layout_width="134dp"
-        android:layout_height="111dp"
+        android:layout_width="135dp"
+        android:layout_height="114dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"

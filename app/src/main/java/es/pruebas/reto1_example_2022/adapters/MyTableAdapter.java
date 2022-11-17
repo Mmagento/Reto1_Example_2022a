@@ -40,7 +40,7 @@ public class MyTableAdapter extends ArrayAdapter<Cancion> {
 
 
 
-        ((TextView) view.findViewById( R.id.userIdTextView)).setText((listadoCancion.get(position).getId()+""));
+        //((TextView) view.findViewById( R.id.userIdTextView)).setText((listadoCancion.get(position).getId()+""));
         ((TextView) view.findViewById( R.id.autorTextView)).setText(listadoCancion.get(position).getAutor());
         ((TextView) view.findViewById( R.id.titulotextView)).setText(listadoCancion.get(position).getTitulo());
         //((TextView) view.findViewById( R.id.urlTextView)).setText(listadoCancion.get(position).getUrl());
