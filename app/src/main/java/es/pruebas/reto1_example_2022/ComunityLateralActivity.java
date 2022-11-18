@@ -14,9 +14,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.Toast;
-
 import com.google.android.material.navigation.NavigationView;
-
 import androidx.annotation.NonNull;
 import androidx.core.view.GravityCompat;
 import androidx.navigation.NavController;
@@ -25,10 +23,8 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import es.pruebas.reto1_example_2022.adapters.MyTableAdapter;
 import es.pruebas.reto1_example_2022.beans.Cancion;
 import es.pruebas.reto1_example_2022.beans.Favorito;
@@ -95,13 +91,6 @@ public class ComunityLateralActivity extends AppCompatActivity implements Naviga
 
         listCanciones.setOnItemClickListener(this::onItemClick);
 
-
-
-
-
-
-
-
     }
 
     @Override
@@ -121,18 +110,20 @@ public class ComunityLateralActivity extends AppCompatActivity implements Naviga
     @SuppressLint("NonConstantResourceId")
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            System.out.println("Estoy en el item Listener");
+
         switch (item.getItemId()) {
             case R.id.nav_login:
                 Intent intent_login = new Intent(ComunityLateralActivity.this, MainActivity.class);
                 startActivity(intent_login);
+
+                finish();
                 break;
             case R.id.nav_favoritos:
-                long id = getIdByUserEmail(emailUsuario);
 
-                Intent intentFavorito = new Intent(ComunityLateralActivity.this, MostrarFavoritos.class);
-                intentFavorito.putExtra("idUser", id);
+                Intent intentFavorito = new Intent(ComunityLateralActivity.this, favoritos_lateral_activity.class);
+                intentFavorito.putExtra("idUser", emailUsuario);
                 startActivity(intentFavorito);
+                finish();
                 break;
 
             default:
@@ -174,12 +165,14 @@ public class ComunityLateralActivity extends AppCompatActivity implements Naviga
                 long idUser = getIdByUserEmail(emailUsuario);
 
                 Favorito favorito = new Favorito();
-
                 favorito.setIdCancion(listado.get(position).getId());
                 favorito.setIdUsuario(idUser);
 
+                int codigo = 0;
+
                 if (isConnected()) {
                     FavoritosPost favoritosPost = new FavoritosPost(favorito);
+
                     Thread thread = new Thread(favoritosPost);
                     try {
                         thread.start();
@@ -187,9 +180,16 @@ public class ComunityLateralActivity extends AppCompatActivity implements Naviga
                     } catch (InterruptedException e) {
                         // Nothing to do here...
                     }
+                    codigo = favoritosPost.getResponse();
                 }
 
-                Toast.makeText(ComunityLateralActivity.this, "Cancion añadida a favoritos", Toast.LENGTH_SHORT).show();
+                if(codigo==500){
+                    Toast.makeText(ComunityLateralActivity.this, "Cancion ya existente", Toast.LENGTH_SHORT).show();
+                } else{
+                    Toast.makeText(ComunityLateralActivity.this, "Cancion añadida a favoritos", Toast.LENGTH_SHORT).show();
+                }
+
+
             } else if (item.getTitle().equals(popupMenu.getMenu().getItem(1).getTitle())) {
 
                 Uri uri = Uri.parse(listado.get(position).getUrl());

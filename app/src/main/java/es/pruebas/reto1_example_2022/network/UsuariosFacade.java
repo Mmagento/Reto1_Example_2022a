@@ -64,7 +64,7 @@ public class UsuariosFacade extends NetConfiguration implements Runnable {
                     JSONObject object = mainArray.getJSONObject(i);
 
                     usuario = new Usuario();
-                    usuario.setId((long) object.getInt("id"));
+                    usuario.setId(object.getInt("id"));
                     usuario.setNombre(object.getString("nombre"));
                     usuario.setApellidos(object.getString("apellidos"));
                     usuario.setEmail(object.getString("email"));

@@ -23,7 +23,7 @@ import es.pruebas.reto1_example_2022.network.UsuariosFacade;
 public class MainActivity extends AppCompatActivity {
 
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
-    public void initializeCamera() {
+    public void prueba() {
         super.onResume();
         recordarUsuario.setActivated(true);
     }
@@ -61,36 +61,23 @@ public class MainActivity extends AppCompatActivity {
 
         iniciarSesion.setOnClickListener(view -> {
             boolean login = inicioSesion();
+            System.out.println("AAAAAAAA"+login);
             Usuario usuario = new Usuario();
             usuario.setEmail(editUser.getText().toString());
             usuario.setPassword(editPassword.getText().toString());
             deleteAllFromDB();
             if (recordarUsuario.isChecked()) {
-                deleteAllFromDB();
                 dataManager.insert(usuario);
-
-            } else if (!recordarUsuario.isChecked()) {
-                deleteAllFromDB();
             }
 
             if (login) {
                 if (!recordarUsuario.isChecked()) {
                     deleteAllFromDB();
                 }
-                //Intent intentComunity = new Intent(MainActivity.this, ComunityActivity.class);
-
-                //intentComunity.putExtra("emailUsuario", usuario.getEmail());
-                //startActivity(intentComunity);
-
                 Intent intentComunity = new Intent(MainActivity.this, ComunityLateralActivity.class);
-
                 intentComunity.putExtra("emailUsuario", usuario.getEmail());
                 startActivity(intentComunity);
 
-
-
-
-                finish();
             } else {
                 Toast.makeText(getApplicationContext(), R.string.errorInicioSesion, Toast.LENGTH_SHORT).show();
             }
@@ -152,10 +139,9 @@ public class MainActivity extends AppCompatActivity {
 
         List<Usuario> user = dataManager.selectAllUsers();
         if (user.size() != 0) {
-            recordarUsuario.setActivated(true);
+            prueba();
             editUser.setText(user.get(0).getEmail());
             editPassword.setText(user.get(0).getPassword());
-
         }
     }
 

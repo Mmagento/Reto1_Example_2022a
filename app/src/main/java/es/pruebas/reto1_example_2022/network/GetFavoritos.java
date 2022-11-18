@@ -2,15 +2,12 @@ package es.pruebas.reto1_example_2022.network;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
-
 import es.pruebas.reto1_example_2022.beans.Cancion;
-import es.pruebas.reto1_example_2022.beans.Favorito;
 
 public class GetFavoritos extends NetConfiguration implements Runnable {
 
