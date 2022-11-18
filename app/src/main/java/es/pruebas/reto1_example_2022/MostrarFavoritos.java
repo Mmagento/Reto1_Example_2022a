@@ -20,7 +20,7 @@ public class MostrarFavoritos extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mostrar_favoritos);
 
-        listCanciones = findViewById(R.id.listView);
+        listCanciones = findViewById(R.id.listViewFinal);
 
         Bundle extras = getIntent().getExtras();
         long id = extras.getLong("idUser");

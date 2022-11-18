@@ -84,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
 
                 Intent intentComunity = new Intent(MainActivity.this, ComunityLateralActivity.class);
 
-                //intentComunity.putExtra("emailUsuario", usuario.getEmail());
+                intentComunity.putExtra("emailUsuario", usuario.getEmail());
                 startActivity(intentComunity);
 
 

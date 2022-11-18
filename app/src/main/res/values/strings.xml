@@ -10,16 +10,8 @@
     <string name="post">Add Fav</string>
     <string name="favorited">Favoriteada!!!</string>
     <string name="error_no_encontrado">No encontrado</string>
-    <string name="textLogin"></string>
-    <string name="textNombre"></string>
-    <string name="textApellidos"></string>
-    <string name="textEmail"></string>
-    <string name="textPassword1"></string>
-    <string name="textPassword2"></string>
     <string name="botonRegistro">Registrarse</string>
     <string name="botonSalir">Salir</string>
-    <string name="textUserLogin"></string>
-    <string name="textPasswordLogin"></string>
     <string name="recordarSesion">Recordar Usuario</string>
     <string name="botonIniciarLogin">Iniciar</string>
     <string name="botonRegistroLogin">Registrar</string>
