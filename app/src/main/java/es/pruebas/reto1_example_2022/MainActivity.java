@@ -1,6 +1,8 @@
 package es.pruebas.reto1_example_2022;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Lifecycle;
+import androidx.lifecycle.OnLifecycleEvent;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,6 +10,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
+
 import java.util.List;
 
 import es.pruebas.reto1_example_2022.beans.Usuario;
@@ -19,9 +22,8 @@ import es.pruebas.reto1_example_2022.network.UsuariosFacade;
 
 public class MainActivity extends AppCompatActivity {
 
-    @Override
-    protected void onResume() {
-
+    @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
+    public void initializeCamera() {
         super.onResume();
         recordarUsuario.setActivated(true);
     }
@@ -49,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
 
         //---DATOS RECOGIDOS DE EL INTENT DE RegisterActivity---
         Bundle extras = getIntent().getExtras();
-        if(extras!=null) {
+        if (extras != null) {
             String login = extras.getString("Login");
             String password = extras.getString("Password");
 
@@ -63,27 +65,25 @@ public class MainActivity extends AppCompatActivity {
             usuario.setEmail(editUser.getText().toString());
             usuario.setPassword(editPassword.getText().toString());
             deleteAllFromDB();
-            if(recordarUsuario.isChecked()){
+            if (recordarUsuario.isChecked()) {
                 deleteAllFromDB();
                 dataManager.insert(usuario);
-                recordarUsuario.setActivated(true);
 
-            }else if(!recordarUsuario.isChecked()){
+            } else if (!recordarUsuario.isChecked()) {
                 deleteAllFromDB();
             }
 
-            if(login){
-                if(!recordarUsuario.isChecked()){
+            if (login) {
+                if (!recordarUsuario.isChecked()) {
                     deleteAllFromDB();
                 }
                 Intent intentComunity = new Intent(MainActivity.this, ComunityActivity.class);
 
-                intentComunity.putExtra("emailUsuario",usuario.getEmail());
+                intentComunity.putExtra("emailUsuario", usuario.getEmail());
                 startActivity(intentComunity);
                 finish();
-                recordarUsuario.setActivated(true);
-            }else{
-                Toast.makeText(getApplicationContext(), R.string.errorInicioSesion , Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(getApplicationContext(), R.string.errorInicioSesion, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -92,23 +92,24 @@ public class MainActivity extends AppCompatActivity {
             usuario.setEmail(editUser.getText().toString());
             usuario.setPassword(editPassword.getText().toString());
             deleteAllFromDB();
-            if(recordarUsuario.isChecked()){
+            if (recordarUsuario.isChecked()) {
                 deleteAllFromDB();
                 dataManager.insert(usuario);
                 recordarUsuario.setActivated(true);
 
-            }else if(!recordarUsuario.isChecked()){
+            } else if (!recordarUsuario.isChecked()) {
                 deleteAllFromDB();
             }
         });
 
         registro.setOnClickListener(view -> {
             Intent intentRegister = new Intent(MainActivity.this, RegisterActivity.class);
-            startActivity(intentRegister); });
+            startActivity(intentRegister);
+        });
 
     }
 
-    private Boolean inicioSesion(){
+    private Boolean inicioSesion() {
 
         UsuariosFacade usuariosFacade = new UsuariosFacade();
         Thread thread = new Thread(usuariosFacade);
@@ -125,9 +126,9 @@ public class MainActivity extends AppCompatActivity {
 
         List<Usuario> personas = usuariosFacade.getResponse();
 
-        for(int i = 0; i < personas.size();i++){
-            if(personas.get(i).getEmail().equalsIgnoreCase(usuarioString)){
-                if (personas.get(i).getPassword().equals(password)){
+        for (int i = 0; i < personas.size(); i++) {
+            if (personas.get(i).getEmail().equalsIgnoreCase(usuarioString)) {
+                if (personas.get(i).getPassword().equals(password)) {
                     existe = true;
                     break;
                 }
@@ -137,11 +138,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void recuerdameSetIntoText(){
+    public void recuerdameSetIntoText() {
         DataManager dataManager = new DataManager(this);
 
-        List<Usuario> user =  dataManager.selectAllUsers();
-        if(user.size()!=0){
+        List<Usuario> user = dataManager.selectAllUsers();
+        if (user.size() != 0) {
             recordarUsuario.setActivated(true);
             editUser.setText(user.get(0).getEmail());
             editPassword.setText(user.get(0).getPassword());
@@ -149,12 +150,12 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void deleteAllFromDB(){
+    public void deleteAllFromDB() {
         DataManager dataManager = new DataManager(this);
-        List<Usuario>usuariosListBorrar = dataManager.selectAllUsers();
+        List<Usuario> usuariosListBorrar = dataManager.selectAllUsers();
 
-        if (usuariosListBorrar.size()!=0){
-            for(int i = 0; i < usuariosListBorrar.size() ; i++){
+        if (usuariosListBorrar.size() != 0) {
+            for (int i = 0; i < usuariosListBorrar.size(); i++) {
                 dataManager.deleteByEmail(usuariosListBorrar.get(i).getEmail());
             }
         }

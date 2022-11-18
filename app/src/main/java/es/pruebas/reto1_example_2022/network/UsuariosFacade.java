@@ -72,9 +72,8 @@ public class UsuariosFacade extends NetConfiguration implements Runnable {
                     this.response.add(usuario);
                 }
             }
-
         } catch (Exception e) {
-            System.out.println("ERRORaaaaaaaaaaaaaa: " + e.getMessage());
+            System.out.println("ERROR: " + e.getMessage());
         }
     }
 

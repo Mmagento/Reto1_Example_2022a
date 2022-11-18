@@ -71,6 +71,7 @@ public class RegisterActivity extends AppCompatActivity {
                         intentalogin.putExtra("Login", memail);
                         intentalogin.putExtra("Password", mpassword1);
                         startActivity(intentalogin);
+                        finish();
                         Toast.makeText(RegisterActivity.this, R.string.registradocorrectamente, Toast.LENGTH_SHORT).show();
 
                     } else {
@@ -84,7 +85,11 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
 
-        botonSalir.setOnClickListener(view -> startActivity(intentalogin));
+        botonSalir.setOnClickListener(view -> {
+            startActivity(intentalogin);
+            finish();
+
+        });
 
     }
 

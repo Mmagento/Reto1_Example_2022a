@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.PopupMenu;
@@ -48,6 +49,8 @@ public class ComunityActivity extends AppCompatActivity {
         MyTableAdapter myTableAdapter = new MyTableAdapter(this, R.layout.myrow_layout, listado);
         listCanciones.setAdapter(myTableAdapter);
 
+
+
         Bundle extras = getIntent().getExtras();
         emailUsuario = extras.getString("emailUsuario");
 
@@ -76,18 +79,13 @@ public class ComunityActivity extends AppCompatActivity {
         mostrarFavoritos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 long id = getIdByUserEmail(emailUsuario);
 
                 Intent intentFavorito = new Intent(ComunityActivity.this, MostrarFavoritos.class);
-                intentFavorito.putExtra("idUser",id);
+                intentFavorito.putExtra("idUser", id);
                 startActivity(intentFavorito);
-
             }
         });
-
-
-
 
     }
 
@@ -113,7 +111,6 @@ public class ComunityActivity extends AppCompatActivity {
     private void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
 
         PopupMenu popupMenu = new PopupMenu(ComunityActivity.this, view);
-
         popupMenu.getMenuInflater().inflate(R.menu.opcion_canciones, popupMenu.getMenu());
 
         popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
@@ -140,14 +137,12 @@ public class ComunityActivity extends AppCompatActivity {
                     }
 
                     Toast.makeText(ComunityActivity.this, "Cancion añadida a favoritos", Toast.LENGTH_SHORT).show();
-
-
                 } else if (item.getTitle().equals(popupMenu.getMenu().getItem(1).getTitle())) {
 
                     Uri uri = Uri.parse(listado.get(position).getUrl());
                     Intent i = new Intent(Intent.ACTION_VIEW, uri);
                     startActivity(i);
-                }
+            }
                 return true;
             }
         });

@@ -38,7 +38,6 @@ public class MyTableAdapter extends ArrayAdapter<Cancion> {
         LayoutInflater layoutInflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = layoutInflater.inflate(R.layout.myrow_layout, null);
 
-
         //((TextView) view.findViewById( R.id.userIdTextView)).setText((listadoCancion.get(position).getId()+""));
         ((TextView) view.findViewById(R.id.autorTextView)).setText(listadoCancion.get(position).getAutor());
         ((TextView) view.findViewById(R.id.titulotextView)).setText(listadoCancion.get(position).getTitulo());
