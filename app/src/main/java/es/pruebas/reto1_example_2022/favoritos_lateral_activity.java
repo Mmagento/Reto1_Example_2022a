@@ -1,10 +1,15 @@
 package es.pruebas.reto1_example_2022;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.Menu;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.PopupMenu;
+import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
 
@@ -22,8 +27,10 @@ import java.util.List;
 
 import es.pruebas.reto1_example_2022.adapters.MyTableAdapter;
 import es.pruebas.reto1_example_2022.beans.Cancion;
+import es.pruebas.reto1_example_2022.beans.Favorito;
 import es.pruebas.reto1_example_2022.beans.Usuario;
 import es.pruebas.reto1_example_2022.databinding.ActivityFavoritosLateralBinding;
+import es.pruebas.reto1_example_2022.network.FavoritosPost;
 import es.pruebas.reto1_example_2022.network.GetFavoritos;
 import es.pruebas.reto1_example_2022.network.UsuariosFacade;
 
@@ -79,6 +86,60 @@ public class favoritos_lateral_activity extends AppCompatActivity implements Nav
 
         }
         favoritos.addAll(getFavoritos.getResponse());
+
+        listCanciones.setOnItemClickListener(this::onItemClick);
+    }
+
+
+    //TO DO ACABAR EL METODO ESTE CON UN MENU NUEVO
+    private void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+
+        PopupMenu popupMenu = new PopupMenu(favoritos_lateral_activity.this, view);
+        popupMenu.getMenuInflater().inflate(R.menu.opcion_canciones, popupMenu.getMenu());
+
+        popupMenu.setOnMenuItemClickListener(item -> {
+
+            if (item.getTitle().equals(popupMenu.getMenu().getItem(0).getTitle())) {
+                long idUser = getIdByUserEmail(emailUsuario);
+
+                Favorito favorito = new Favorito();
+                favorito.setIdCancion(favoritos.get(position).getId());
+                favorito.setIdUsuario(idUser);
+
+                int codigo = 0;
+
+                    FavoritosPost favoritosPost = new FavoritosPost(favorito);
+
+                    Thread thread = new Thread(favoritosPost);
+                    try {
+                        thread.start();
+                        thread.join(); // Awaiting response from the server...
+                    } catch (InterruptedException e) {
+                        // Nothing to do here...
+                    }
+                    codigo = favoritosPost.getResponse();
+
+
+                if(codigo==500){
+                    Toast.makeText(favoritos_lateral_activity.this, "Cancion ya existente", Toast.LENGTH_SHORT).show();
+                } else{
+                    Toast.makeText(favoritos_lateral_activity.this, "Cancion añadida a favoritos", Toast.LENGTH_SHORT).show();
+                }
+
+
+            } else if (item.getTitle().equals(popupMenu.getMenu().getItem(1).getTitle())) {
+
+                Uri uri = Uri.parse(favoritos.get(position).getUrl());
+                Intent i = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(i);
+            }
+            return true;
+        });
+        popupMenu.show();
+
+
+
+
     }
 
     @Override
@@ -104,7 +165,6 @@ public class favoritos_lateral_activity extends AppCompatActivity implements Nav
                 finish();
                 break;
             case R.id.nav_canciones:
-
                 Intent intentCanciones = new Intent(favoritos_lateral_activity.this, ComunityLateralActivity.class);
                 intentCanciones.putExtra("emailUsuario",emailUsuario);
                 startActivity(intentCanciones);
