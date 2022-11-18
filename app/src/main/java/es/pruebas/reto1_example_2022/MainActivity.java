@@ -77,10 +77,19 @@ public class MainActivity extends AppCompatActivity {
                 if (!recordarUsuario.isChecked()) {
                     deleteAllFromDB();
                 }
-                Intent intentComunity = new Intent(MainActivity.this, ComunityActivity.class);
+                //Intent intentComunity = new Intent(MainActivity.this, ComunityActivity.class);
 
-                intentComunity.putExtra("emailUsuario", usuario.getEmail());
+                //intentComunity.putExtra("emailUsuario", usuario.getEmail());
+                //startActivity(intentComunity);
+
+                Intent intentComunity = new Intent(MainActivity.this, ComunityLateralActivity.class);
+
+                //intentComunity.putExtra("emailUsuario", usuario.getEmail());
                 startActivity(intentComunity);
+
+
+
+
                 finish();
             } else {
                 Toast.makeText(getApplicationContext(), R.string.errorInicioSesion, Toast.LENGTH_SHORT).show();

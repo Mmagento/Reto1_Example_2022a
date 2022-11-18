@@ -20,6 +20,15 @@
         android:theme="@style/Theme.Reto1_Example_2022"
         tools:targetApi="31">
         <activity
+            android:name=".ComunityLateralActivity"
+            android:exported="false"
+            android:label="@string/title_activity_comunity_lateral"
+            android:theme="@style/Theme.Reto1_Example_2022.NoActionBar">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".MostrarFavoritos"
             android:exported="false">
             <meta-data
