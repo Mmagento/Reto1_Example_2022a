@@ -38,13 +38,6 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".MostrarFavoritos"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
             android:name=".ComunityActivity"
             android:exported="false">
             <meta-data

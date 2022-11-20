@@ -66,26 +66,6 @@ public class DataManager extends SQLiteOpenHelper {
         return ret;
     }
 
-    /* Select by Id */
-
-//    public Usuario selectById (int id) {
-//        String query = "Select * FROM " + TABLE_NAME + " WHERE " + ID +
-//                " = " + "'" + id + "'";
-//        SQLiteDatabase sQLiteDatabase = this.getWritableDatabase();
-//        Cursor cursor = sQLiteDatabase.rawQuery(query, null);
-//
-//        Usuario user = new Usuario ();
-//        if (cursor.moveToFirst()) {
-//            cursor.moveToFirst();
-//            user.setEmail(cursor.getString(3));
-//            user.setPassword(cursor.getString(4));
-//            cursor.close();
-//        } else {
-//            user = null;
-//        }
-//        sQLiteDatabase.close();
-//        return user;
-//    }
 
     /* Insertar */
 

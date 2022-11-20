@@ -9,12 +9,9 @@ import android.util.Patterns;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import java.util.List;
 import java.util.regex.Pattern;
-
 import es.pruebas.reto1_example_2022.beans.Usuario;
 import es.pruebas.reto1_example_2022.network.UsuarioPost;
 import es.pruebas.reto1_example_2022.network.UsuariosFacade;
@@ -57,32 +54,38 @@ public class RegisterActivity extends AppCompatActivity {
             //si el mail esta bien es true
             boolean errorEmail = validarEmail(memail);
 
-            if (errorEmail) {
-                if (mpassword1.equals(mpassword2)) {
-                    boolean error = existeUsuario(memail);
-                    if (!error) {
-                        usuario.setNombre(mnombre);
-                        usuario.setApellidos(mapellidos);
-                        usuario.setEmail(memail);
-                        usuario.setPassword(mpassword1);
 
-                        registrarUsuario(usuario);
+            if (!mnombre.isEmpty() && !mapellidos.isEmpty() && !mpassword1.isEmpty() && !mpassword2.isEmpty()) {
+                if (errorEmail) {
+                    if (mpassword1.equals(mpassword2)) {
+                        boolean error = existeUsuario(memail);
+                        if (!error) {
+                            usuario.setNombre(mnombre);
+                            usuario.setApellidos(mapellidos);
+                            usuario.setEmail(memail);
+                            usuario.setPassword(mpassword1);
 
-                        intentalogin.putExtra("Login", memail);
-                        intentalogin.putExtra("Password", mpassword1);
-                        startActivity(intentalogin);
-                        finish();
-                        Toast.makeText(RegisterActivity.this, R.string.registradocorrectamente, Toast.LENGTH_SHORT).show();
+                            registrarUsuario(usuario);
 
+                            intentalogin.putExtra("Login", memail);
+                            intentalogin.putExtra("Password", mpassword1);
+                            startActivity(intentalogin);
+                            finish();
+                            Toast.makeText(RegisterActivity.this, R.string.registradocorrectamente, Toast.LENGTH_SHORT).show();
+
+                        } else {
+                            Toast.makeText(RegisterActivity.this, R.string.usuarioYaRegistrado, Toast.LENGTH_SHORT).show();
+                        }
                     } else {
-                        Toast.makeText(RegisterActivity.this, R.string.usuarioYaRegistrado, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(RegisterActivity.this, R.string.errorContraseñas, Toast.LENGTH_SHORT).show();
                     }
                 } else {
-                    Toast.makeText(RegisterActivity.this, R.string.errorContraseñas, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterActivity.this, R.string.errorFormatoEmail, Toast.LENGTH_SHORT).show();
                 }
             } else {
-                Toast.makeText(RegisterActivity.this, R.string.errorFormatoEmail, Toast.LENGTH_SHORT).show();
+                Toast.makeText(RegisterActivity.this, R.string.errorCampos, Toast.LENGTH_SHORT).show();
             }
+
         });
 
         botonSalir.setOnClickListener(view -> {

@@ -42,4 +42,7 @@
     <string name="canciones">Canciones</string>
     <string name="title_activity_favoritos_lateral">favoritos_lateral_activity</string>
     <string name="menu_home">Home</string>
+    <string name="favoritos">Favoritos</string>
+    <string name="errorCampos">Campos esenciales sin rellenar</string>
+    <string name="Eliminar_cancion">Eliminar cancion de favoritos</string>
 </resources>

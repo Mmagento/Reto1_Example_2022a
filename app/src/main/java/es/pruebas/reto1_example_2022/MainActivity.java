@@ -3,16 +3,13 @@ package es.pruebas.reto1_example_2022;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.OnLifecycleEvent;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import java.util.List;
-
 import es.pruebas.reto1_example_2022.beans.Usuario;
 import es.pruebas.reto1_example_2022.network.UsuariosFacade;
 

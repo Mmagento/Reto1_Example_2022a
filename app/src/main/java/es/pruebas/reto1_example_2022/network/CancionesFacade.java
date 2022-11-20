@@ -16,7 +16,6 @@ import es.pruebas.reto1_example_2022.beans.Cancion;
  */
 public class CancionesFacade extends NetConfiguration implements Runnable {
 
-    private final String theUrl = theBaseUrl + "/canciones";
 
     private ArrayList<Cancion> response;
 
@@ -27,6 +26,7 @@ public class CancionesFacade extends NetConfiguration implements Runnable {
     @Override
     public void run() {
 
+        final String theUrl = theBaseUrl + "/canciones";
         try {
             // The URL
             URL url = new URL(theUrl);

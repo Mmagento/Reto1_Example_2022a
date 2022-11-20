@@ -12,13 +12,14 @@ import es.pruebas.reto1_example_2022.beans.Favorito;
 public class DeleteFavorito extends NetConfiguration implements Runnable{
 
     private final String theUrl = theBaseUrl + "/favoritos";
-    private Favorito favorito;
     private int reponse;
     private long idUser;
     private long idSong;
 
-    public DeleteFavorito(Favorito favoritoCons) {
-        favorito = favoritoCons;
+    public DeleteFavorito(long user , long song) {
+
+        idUser=user;
+        idSong=song;
     }
 
     @Override
@@ -32,13 +33,10 @@ public class DeleteFavorito extends NetConfiguration implements Runnable{
             httpURLConnection.setRequestProperty("Accept", "application/json");
             httpURLConnection.setDoOutput(true);
             httpURLConnection.setDoInput(true);
-            String jsonInputString = favorito.toString();
-            try (OutputStream postSend = httpURLConnection.getOutputStream()) {
-                byte[] input = jsonInputString.getBytes(StandardCharsets.UTF_8);
-                postSend.write(input, 0, input.length);
-            }
+
 
             int responseCode = httpURLConnection.getResponseCode();
+            System.out.println("EL CODIGO DE RESPUESTA ES :"+responseCode);
             if(responseCode==500){
 
                 reponse=responseCode;
@@ -62,7 +60,6 @@ public class DeleteFavorito extends NetConfiguration implements Runnable{
     }
 
     public int getResponse() {
-        System.out.println("RESPONSE"+reponse);
         return reponse;
 
     }

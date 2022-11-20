@@ -14,7 +14,9 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.Toast;
+
 import com.google.android.material.navigation.NavigationView;
+
 import androidx.annotation.NonNull;
 import androidx.core.view.GravityCompat;
 import androidx.navigation.NavController;
@@ -23,15 +25,19 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import es.pruebas.reto1_example_2022.adapters.MyTableAdapter;
 import es.pruebas.reto1_example_2022.beans.Cancion;
 import es.pruebas.reto1_example_2022.beans.Favorito;
 import es.pruebas.reto1_example_2022.beans.Usuario;
 import es.pruebas.reto1_example_2022.databinding.ActivityComunityLateralBinding;
 import es.pruebas.reto1_example_2022.network.CancionesFacade;
+import es.pruebas.reto1_example_2022.network.DeleteFavorito;
 import es.pruebas.reto1_example_2022.network.FavoritosPost;
+import es.pruebas.reto1_example_2022.network.GetFavoritos;
 import es.pruebas.reto1_example_2022.network.UsuariosFacade;
 
 public class ComunityLateralActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -43,7 +49,6 @@ public class ComunityLateralActivity extends AppCompatActivity implements Naviga
     private String emailUsuario;
     private DrawerLayout drawer;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,7 +59,6 @@ public class ComunityLateralActivity extends AppCompatActivity implements Naviga
         setSupportActionBar(binding.appBarComunityLateral.toolbar);
         drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
-
 
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
@@ -88,9 +92,7 @@ public class ComunityLateralActivity extends AppCompatActivity implements Naviga
             }
             listado.addAll(cancionesFacade.getResponse());
         }
-
         listCanciones.setOnItemClickListener(this::onItemClick);
-
     }
 
     @Override
@@ -115,17 +117,14 @@ public class ComunityLateralActivity extends AppCompatActivity implements Naviga
             case R.id.nav_login:
                 Intent intent_login = new Intent(ComunityLateralActivity.this, MainActivity.class);
                 startActivity(intent_login);
-
                 finish();
                 break;
             case R.id.nav_favoritos:
-
                 Intent intentFavorito = new Intent(ComunityLateralActivity.this, favoritos_lateral_activity.class);
                 intentFavorito.putExtra("idUser", emailUsuario);
                 startActivity(intentFavorito);
                 finish();
                 break;
-
             default:
                 throw new IllegalArgumentException("menu option not implemented!!");
         }
@@ -182,19 +181,40 @@ public class ComunityLateralActivity extends AppCompatActivity implements Naviga
                     }
                     codigo = favoritosPost.getResponse();
                 }
-
-                if(codigo==500){
-                    Toast.makeText(ComunityLateralActivity.this, "Cancion ya existente", Toast.LENGTH_SHORT).show();
-                } else{
+                if (codigo == 500) {
+                    Toast.makeText(ComunityLateralActivity.this, "Cancion ya asignada a favoritos", Toast.LENGTH_SHORT).show();
+                } else {
                     Toast.makeText(ComunityLateralActivity.this, "Cancion añadida a favoritos", Toast.LENGTH_SHORT).show();
                 }
-
-
             } else if (item.getTitle().equals(popupMenu.getMenu().getItem(1).getTitle())) {
-
                 Uri uri = Uri.parse(listado.get(position).getUrl());
                 Intent i = new Intent(Intent.ACTION_VIEW, uri);
                 startActivity(i);
+            } else if (item.getTitle().equals(popupMenu.getMenu().getItem(2).getTitle())) {
+                System.out.println("ESTOAOAOSOSAOSOOA");
+                long idUser = getIdByUserEmail(emailUsuario);
+                long idSong = listado.get(position).getId();
+                int codigo = 0;
+                boolean existe = comprobarFavoritos(idUser, idSong);
+                if (existe) {
+                    if (isConnected()) {
+                        DeleteFavorito deleteFavorito = new DeleteFavorito(idUser, idSong);
+
+                        Thread thread = new Thread(deleteFavorito);
+                        try {
+                            thread.start();
+                            thread.join(); // Awaiting response from the server...
+                        } catch (InterruptedException e) {
+                            // Nothing to do here...
+                        }
+                        codigo = deleteFavorito.getResponse();
+                    }
+                    Toast.makeText(ComunityLateralActivity.this, "Cancion eliminada con exito", Toast.LENGTH_SHORT).show();
+
+                } else {
+                    Toast.makeText(ComunityLateralActivity.this, "La cancion no se encuentra en favoritos", Toast.LENGTH_SHORT).show();
+                }
+
             }
             return true;
         });
@@ -227,6 +247,29 @@ public class ComunityLateralActivity extends AppCompatActivity implements Naviga
     }
 
 
+    private boolean comprobarFavoritos(long idUser, long idSong) {
+
+        boolean existe = false;
+        GetFavoritos getFavoritos = new GetFavoritos(idUser);
+        Thread thread = new Thread(getFavoritos);
+        try {
+            thread.start();
+            thread.join(); // Awaiting response from the server...
+        } catch (InterruptedException e) {
+            // Nothing to do here...
+
+        }
+        ArrayList<Cancion> favoritos = getFavoritos.getResponse();
+
+        for (int i = 0; i < favoritos.size(); i++) {
+            if (favoritos.get(i).getId() == idSong) {
+                existe = true;
+                break;
+
+            }
+        }
+        return existe;
+    }
 
 
 }

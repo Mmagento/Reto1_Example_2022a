@@ -6,11 +6,11 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_login_2"
-            android:icon="?attr/actionModeCloseDrawable"
+            android:icon="?attr/homeAsUpIndicator"
             android:title="@string/ir_login" />
         <item
             android:id="@+id/nav_canciones"
-            android:icon="@drawable/ic_menu_gallery"
+            android:icon="@android:drawable/ic_menu_sort_by_size"
             android:title="@string/ir_canciones" />
     </group>
 </menu>
