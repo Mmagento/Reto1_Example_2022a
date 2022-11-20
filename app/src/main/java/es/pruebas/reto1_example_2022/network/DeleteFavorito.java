@@ -9,23 +9,23 @@ import java.nio.charset.StandardCharsets;
 
 import es.pruebas.reto1_example_2022.beans.Favorito;
 
-public class DeleteFavorito extends NetConfiguration implements Runnable{
+public class DeleteFavorito extends NetConfiguration implements Runnable {
 
     private final String theUrl = theBaseUrl + "/favoritos";
     private int reponse;
     private long idUser;
     private long idSong;
 
-    public DeleteFavorito(long user , long song) {
+    public DeleteFavorito(long user, long song) {
 
-        idUser=user;
-        idSong=song;
+        idUser = user;
+        idSong = song;
     }
 
     @Override
     public void run() {
         try {
-            String urlFinal = theUrl +"/"+idUser +"/"+ idSong;
+            String urlFinal = theUrl + "/" + idUser + "/" + idSong;
             URL url = new URL(urlFinal);
             HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
             httpURLConnection.setRequestMethod("DELETE");
@@ -36,12 +36,12 @@ public class DeleteFavorito extends NetConfiguration implements Runnable{
 
 
             int responseCode = httpURLConnection.getResponseCode();
-            System.out.println("EL CODIGO DE RESPUESTA ES :"+responseCode);
-            if(responseCode==500){
+            System.out.println("EL CODIGO DE RESPUESTA ES :" + responseCode);
+            if (responseCode == 500) {
 
-                reponse=responseCode;
+                reponse = responseCode;
 
-            }else if (responseCode == HttpURLConnection.HTTP_OK) {
+            } else if (responseCode == HttpURLConnection.HTTP_OK) {
 
                 BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(httpURLConnection.getInputStream()));
                 StringBuffer response = new StringBuffer();

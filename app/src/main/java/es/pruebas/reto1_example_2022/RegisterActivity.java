@@ -9,9 +9,12 @@ import android.util.Patterns;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import java.util.List;
 import java.util.regex.Pattern;
+
 import es.pruebas.reto1_example_2022.beans.Usuario;
 import es.pruebas.reto1_example_2022.network.UsuarioPost;
 import es.pruebas.reto1_example_2022.network.UsuariosFacade;

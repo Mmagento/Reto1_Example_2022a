@@ -2,11 +2,13 @@ package es.pruebas.reto1_example_2022.network;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+
 import es.pruebas.reto1_example_2022.beans.Cancion;
 
 public class GetFavoritos extends NetConfiguration implements Runnable {
@@ -19,7 +21,7 @@ public class GetFavoritos extends NetConfiguration implements Runnable {
 
     public GetFavoritos(long id) {
         super();
-        idUser=id;
+        idUser = id;
     }
 
     @Override
@@ -27,8 +29,8 @@ public class GetFavoritos extends NetConfiguration implements Runnable {
 
         try {
             // The URL
-            String url2 = theUrl+"/"+ idUser;
-            URL url = new URL(url2 );
+            String url2 = theUrl + "/" + idUser;
+            URL url = new URL(url2);
             HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
             httpURLConnection.setRequestMethod("GET");
 

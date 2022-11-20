@@ -3,13 +3,24 @@ package es.pruebas.reto1_example_2022;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.OnLifecycleEvent;
+
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
+import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.PopupMenu;
 import android.widget.Toast;
+
 import java.util.List;
+import java.util.Locale;
+
 import es.pruebas.reto1_example_2022.beans.Usuario;
 import es.pruebas.reto1_example_2022.network.UsuariosFacade;
 
@@ -28,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText editUser;
     private EditText editPassword;
     private CheckBox recordarUsuario;
-    Button iniciarSesion, registro;
+    Button iniciarSesion, registro, elegirIdioma;
 
 
     @Override
@@ -43,8 +54,10 @@ public class MainActivity extends AppCompatActivity {
         recordarUsuario = findViewById(R.id.recordarSesion);
         iniciarSesion = findViewById(R.id.botonIniciarLogin);
         registro = findViewById(R.id.botonRegistroLogin);
+        elegirIdioma = findViewById(R.id.buttonElegirIdioma);
 
         recuerdameSetIntoText();
+
 
         //---DATOS RECOGIDOS DE EL INTENT DE RegisterActivity---
         Bundle extras = getIntent().getExtras();
@@ -58,7 +71,6 @@ public class MainActivity extends AppCompatActivity {
 
         iniciarSesion.setOnClickListener(view -> {
             boolean login = inicioSesion();
-            System.out.println("AAAAAAAA"+login);
             Usuario usuario = new Usuario();
             usuario.setEmail(editUser.getText().toString());
             usuario.setPassword(editPassword.getText().toString());
@@ -98,6 +110,30 @@ public class MainActivity extends AppCompatActivity {
         registro.setOnClickListener(view -> {
             Intent intentRegister = new Intent(MainActivity.this, RegisterActivity.class);
             startActivity(intentRegister);
+        });
+
+        elegirIdioma.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+               PopupMenu popupMenu = new PopupMenu(MainActivity.this, elegirIdioma);
+               popupMenu.getMenuInflater().inflate(R.menu.menu_idioma, popupMenu.getMenu());
+
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem menuItem) {
+                        switch (menuItem.getItemId()) {
+                            case R.id.en:
+                                setLocale("en");
+                                break;
+                            case R.id.es:
+                                setLocale("es");
+                                break;
+                        }
+                        return false;
+                    }
+                });
+                popupMenu.show();
+            }
         });
 
     }
@@ -152,5 +188,19 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+
+
+    public void setLocale(String lang) {
+        Locale myLocale = new Locale(lang);
+        Resources res = getResources();
+        DisplayMetrics dm = res.getDisplayMetrics();
+        Configuration conf = res.getConfiguration();
+        conf.locale = myLocale;
+        res.updateConfiguration(conf, dm);
+        Intent refresh = new Intent(this, MainActivity.class);
+        finish();
+        startActivity(refresh);
+    }
+
 
 }

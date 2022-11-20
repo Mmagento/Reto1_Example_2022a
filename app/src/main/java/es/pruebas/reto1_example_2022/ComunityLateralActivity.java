@@ -214,14 +214,12 @@ public class ComunityLateralActivity extends AppCompatActivity implements Naviga
                 } else {
                     Toast.makeText(ComunityLateralActivity.this, "La cancion no se encuentra en favoritos", Toast.LENGTH_SHORT).show();
                 }
-
             }
             return true;
         });
         popupMenu.show();
 
     }
-
 
     private long getIdByUserEmail(String email) {
 

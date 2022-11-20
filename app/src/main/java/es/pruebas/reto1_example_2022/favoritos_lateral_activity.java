@@ -10,7 +10,9 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.Toast;
+
 import com.google.android.material.navigation.NavigationView;
+
 import androidx.annotation.NonNull;
 import androidx.core.view.GravityCompat;
 import androidx.navigation.NavController;
@@ -19,8 +21,10 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import es.pruebas.reto1_example_2022.adapters.MyTableAdapter;
 import es.pruebas.reto1_example_2022.beans.Cancion;
 import es.pruebas.reto1_example_2022.beans.Favorito;
@@ -97,7 +101,7 @@ public class favoritos_lateral_activity extends AppCompatActivity implements Nav
 
         popupMenu.setOnMenuItemClickListener(item -> {
 
-         if (item.getTitle().equals(popupMenu.getMenu().getItem(0).getTitle())) {
+            if (item.getTitle().equals(popupMenu.getMenu().getItem(0).getTitle())) {
 
                 Uri uri = Uri.parse(favoritos.get(position).getUrl());
                 Intent i = new Intent(Intent.ACTION_VIEW, uri);

@@ -8,7 +8,6 @@
     <string name="error_communication">Error de comunicacion</string>
     <string name="fill_all">Get All</string>
     <string name="post">Add Fav</string>
-    <string name="favorited">Favoriteada!!!</string>
     <string name="error_no_encontrado">No encontrado</string>
     <string name="botonRegistro">Registrarse</string>
     <string name="botonSalir">Salir</string>
@@ -45,4 +44,7 @@
     <string name="favoritos">Favoritos</string>
     <string name="errorCampos">Campos esenciales sin rellenar</string>
     <string name="Eliminar_cancion">Eliminar cancion de favoritos</string>
+    <string name="en">Ingles</string>
+    <string name="es">Español</string>
+    <string name="seleccionIdioma">Seleccion de idioma</string>
 </resources>
