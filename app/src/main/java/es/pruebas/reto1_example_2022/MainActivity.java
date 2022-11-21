@@ -196,10 +196,7 @@ public class MainActivity extends AppCompatActivity {
         Configuration conf = res.getConfiguration();
         conf.locale = myLocale;
         res.updateConfiguration(conf, dm);
-        Intent refresh = new Intent(this, MainActivity.class);
-        finish();
-        startActivity(refresh);
+        this.recreate();
     }
-
 
 }
