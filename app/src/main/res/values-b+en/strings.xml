@@ -52,4 +52,8 @@
     <string name="añadido_ya_favoritos">Song already favorited</string>
     <string name="cancion_eliminada">Song deleted</string>
     <string name="cancion_no_favorito">Song was not favorited</string>
+    <string name="usuario">Username</string>
+    <string name="nombre">Name</string>
+    <string name="apeliidos">Surname</string>
+    <string name="repite_pass">Repeat Password</string>
 </resources>
