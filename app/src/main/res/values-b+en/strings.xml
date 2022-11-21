@@ -48,4 +48,8 @@
     <string name="en">English</string>
     <string name="es">Spanish</string>
     <string name="seleccionIdioma">Language Selection</string>
+    <string name="añadido_favoritos">Song add to favorites</string>
+    <string name="añadido_ya_favoritos">Song already favorited</string>
+    <string name="cancion_eliminada">Song deleted</string>
+    <string name="cancion_no_favorito">Song was not favorited</string>
 </resources>

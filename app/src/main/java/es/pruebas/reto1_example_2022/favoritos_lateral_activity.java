@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.PopupMenu;
-import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
 
@@ -27,11 +26,9 @@ import java.util.List;
 
 import es.pruebas.reto1_example_2022.adapters.MyTableAdapter;
 import es.pruebas.reto1_example_2022.beans.Cancion;
-import es.pruebas.reto1_example_2022.beans.Favorito;
 import es.pruebas.reto1_example_2022.beans.Usuario;
 import es.pruebas.reto1_example_2022.databinding.ActivityFavoritosLateralBinding;
 import es.pruebas.reto1_example_2022.network.DeleteFavorito;
-import es.pruebas.reto1_example_2022.network.FavoritosPost;
 import es.pruebas.reto1_example_2022.network.GetFavoritos;
 import es.pruebas.reto1_example_2022.network.UsuariosFacade;
 

@@ -47,4 +47,9 @@
     <string name="en">Ingles</string>
     <string name="es">Español</string>
     <string name="seleccionIdioma">Seleccion de idioma</string>
+    <string name="añadido_favoritos">Cancion añadida a favoritos</string>
+    <string name="añadido_ya_favoritos">Cancion ya asignada a favoritos</string>
+    <string name="cancion_eliminada">Cancion eliminada con exito</string>
+    <string name="cancion_no_favorito">La cancion no se encuentra en favoritos</string>
+
 </resources>

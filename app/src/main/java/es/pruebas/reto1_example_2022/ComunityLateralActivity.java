@@ -182,16 +182,15 @@ public class ComunityLateralActivity extends AppCompatActivity implements Naviga
                     codigo = favoritosPost.getResponse();
                 }
                 if (codigo == 500) {
-                    Toast.makeText(ComunityLateralActivity.this, "Cancion ya asignada a favoritos", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ComunityLateralActivity.this, R.string.añadido_ya_favoritos, Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(ComunityLateralActivity.this, "Cancion añadida a favoritos", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ComunityLateralActivity.this, R.string.añadido_favoritos, Toast.LENGTH_SHORT).show();
                 }
             } else if (item.getTitle().equals(popupMenu.getMenu().getItem(1).getTitle())) {
                 Uri uri = Uri.parse(listado.get(position).getUrl());
                 Intent i = new Intent(Intent.ACTION_VIEW, uri);
                 startActivity(i);
             } else if (item.getTitle().equals(popupMenu.getMenu().getItem(2).getTitle())) {
-                System.out.println("ESTOAOAOSOSAOSOOA");
                 long idUser = getIdByUserEmail(emailUsuario);
                 long idSong = listado.get(position).getId();
                 int codigo = 0;
@@ -209,10 +208,10 @@ public class ComunityLateralActivity extends AppCompatActivity implements Naviga
                         }
                         codigo = deleteFavorito.getResponse();
                     }
-                    Toast.makeText(ComunityLateralActivity.this, "Cancion eliminada con exito", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ComunityLateralActivity.this, R.string.cancion_eliminada, Toast.LENGTH_SHORT).show();
 
                 } else {
-                    Toast.makeText(ComunityLateralActivity.this, "La cancion no se encuentra en favoritos", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ComunityLateralActivity.this, R.string.cancion_no_favorito, Toast.LENGTH_SHORT).show();
                 }
             }
             return true;
